@@ -1,0 +1,55 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed May 21 21:51:13 2025
+[*]
+[dumpfile] "/home/vinicius/Desktop/meuDiretorio/UTFPR/Disciplinas/arqComp/microProcessor-Arq_Comp/topLevel_tb.ghw"
+[dumpfile_mtime] "Wed May 21 21:39:46 2025"
+[dumpfile_size] 17738
+[savefile] "/home/vinicius/Desktop/meuDiretorio/UTFPR/Disciplinas/arqComp/microProcessor-Arq_Comp/sinais_topLevel_tb.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*0.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.toplevel_tb.
+[treeopen] top.toplevel_tb.dut.
+[sst_width] 233
+[signals_width] 206
+[sst_expanded] 1
+[sst_vpaned_height] 144
+@28
+top.toplevel_tb.finished
+top.toplevel_tb.zero
+top.toplevel_tb.negativo
+top.toplevel_tb.overflow
+top.toplevel_tb.a_we
+top.toplevel_tb.wr_en
+top.toplevel_tb.rst
+top.toplevel_tb.clk
+#{top.toplevel_tb.a_wr_sel[1:0]} top.toplevel_tb.a_wr_sel[1] top.toplevel_tb.a_wr_sel[0]
+#{top.toplevel_tb.data_wr_bregs_sel[1:0]} top.toplevel_tb.data_wr_bregs_sel[1] top.toplevel_tb.data_wr_bregs_sel[0]
+@22
+#{top.toplevel_tb.reg_r1[4:0]} top.toplevel_tb.reg_r1[4] top.toplevel_tb.reg_r1[3] top.toplevel_tb.reg_r1[2] top.toplevel_tb.reg_r1[1] top.toplevel_tb.reg_r1[0]
+#{top.toplevel_tb.reg_wr[4:0]} top.toplevel_tb.reg_wr[4] top.toplevel_tb.reg_wr[3] top.toplevel_tb.reg_wr[2] top.toplevel_tb.reg_wr[1] top.toplevel_tb.reg_wr[0]
+#{top.toplevel_tb.const[15:0]} top.toplevel_tb.const[15] top.toplevel_tb.const[14] top.toplevel_tb.const[13] top.toplevel_tb.const[12] top.toplevel_tb.const[11] top.toplevel_tb.const[10] top.toplevel_tb.const[9] top.toplevel_tb.const[8] top.toplevel_tb.const[7] top.toplevel_tb.const[6] top.toplevel_tb.const[5] top.toplevel_tb.const[4] top.toplevel_tb.const[3] top.toplevel_tb.const[2] top.toplevel_tb.const[1] top.toplevel_tb.const[0]
+#{top.toplevel_tb.data_wr[15:0]} top.toplevel_tb.data_wr[15] top.toplevel_tb.data_wr[14] top.toplevel_tb.data_wr[13] top.toplevel_tb.data_wr[12] top.toplevel_tb.data_wr[11] top.toplevel_tb.data_wr[10] top.toplevel_tb.data_wr[9] top.toplevel_tb.data_wr[8] top.toplevel_tb.data_wr[7] top.toplevel_tb.data_wr[6] top.toplevel_tb.data_wr[5] top.toplevel_tb.data_wr[4] top.toplevel_tb.data_wr[3] top.toplevel_tb.data_wr[2] top.toplevel_tb.data_wr[1] top.toplevel_tb.data_wr[0]
+@28
+#{top.toplevel_tb.ula_op[1:0]} top.toplevel_tb.ula_op[1] top.toplevel_tb.ula_op[0]
+@22
+#{top.toplevel_tb.dut.data_rg1[15:0]} top.toplevel_tb.dut.data_rg1[15] top.toplevel_tb.dut.data_rg1[14] top.toplevel_tb.dut.data_rg1[13] top.toplevel_tb.dut.data_rg1[12] top.toplevel_tb.dut.data_rg1[11] top.toplevel_tb.dut.data_rg1[10] top.toplevel_tb.dut.data_rg1[9] top.toplevel_tb.dut.data_rg1[8] top.toplevel_tb.dut.data_rg1[7] top.toplevel_tb.dut.data_rg1[6] top.toplevel_tb.dut.data_rg1[5] top.toplevel_tb.dut.data_rg1[4] top.toplevel_tb.dut.data_rg1[3] top.toplevel_tb.dut.data_rg1[2] top.toplevel_tb.dut.data_rg1[1] top.toplevel_tb.dut.data_rg1[0]
+#{top.toplevel_tb.dut.data_wr_bregs[15:0]} top.toplevel_tb.dut.data_wr_bregs[15] top.toplevel_tb.dut.data_wr_bregs[14] top.toplevel_tb.dut.data_wr_bregs[13] top.toplevel_tb.dut.data_wr_bregs[12] top.toplevel_tb.dut.data_wr_bregs[11] top.toplevel_tb.dut.data_wr_bregs[10] top.toplevel_tb.dut.data_wr_bregs[9] top.toplevel_tb.dut.data_wr_bregs[8] top.toplevel_tb.dut.data_wr_bregs[7] top.toplevel_tb.dut.data_wr_bregs[6] top.toplevel_tb.dut.data_wr_bregs[5] top.toplevel_tb.dut.data_wr_bregs[4] top.toplevel_tb.dut.data_wr_bregs[3] top.toplevel_tb.dut.data_wr_bregs[2] top.toplevel_tb.dut.data_wr_bregs[1] top.toplevel_tb.dut.data_wr_bregs[0]
+#{top.toplevel_tb.dut.a_out[15:0]} top.toplevel_tb.dut.a_out[15] top.toplevel_tb.dut.a_out[14] top.toplevel_tb.dut.a_out[13] top.toplevel_tb.dut.a_out[12] top.toplevel_tb.dut.a_out[11] top.toplevel_tb.dut.a_out[10] top.toplevel_tb.dut.a_out[9] top.toplevel_tb.dut.a_out[8] top.toplevel_tb.dut.a_out[7] top.toplevel_tb.dut.a_out[6] top.toplevel_tb.dut.a_out[5] top.toplevel_tb.dut.a_out[4] top.toplevel_tb.dut.a_out[3] top.toplevel_tb.dut.a_out[2] top.toplevel_tb.dut.a_out[1] top.toplevel_tb.dut.a_out[0]
+#{top.toplevel_tb.dut.a_in[15:0]} top.toplevel_tb.dut.a_in[15] top.toplevel_tb.dut.a_in[14] top.toplevel_tb.dut.a_in[13] top.toplevel_tb.dut.a_in[12] top.toplevel_tb.dut.a_in[11] top.toplevel_tb.dut.a_in[10] top.toplevel_tb.dut.a_in[9] top.toplevel_tb.dut.a_in[8] top.toplevel_tb.dut.a_in[7] top.toplevel_tb.dut.a_in[6] top.toplevel_tb.dut.a_in[5] top.toplevel_tb.dut.a_in[4] top.toplevel_tb.dut.a_in[3] top.toplevel_tb.dut.a_in[2] top.toplevel_tb.dut.a_in[1] top.toplevel_tb.dut.a_in[0]
+#{top.toplevel_tb.dut.result[15:0]} top.toplevel_tb.dut.result[15] top.toplevel_tb.dut.result[14] top.toplevel_tb.dut.result[13] top.toplevel_tb.dut.result[12] top.toplevel_tb.dut.result[11] top.toplevel_tb.dut.result[10] top.toplevel_tb.dut.result[9] top.toplevel_tb.dut.result[8] top.toplevel_tb.dut.result[7] top.toplevel_tb.dut.result[6] top.toplevel_tb.dut.result[5] top.toplevel_tb.dut.result[4] top.toplevel_tb.dut.result[3] top.toplevel_tb.dut.result[2] top.toplevel_tb.dut.result[1] top.toplevel_tb.dut.result[0]
+@28
+#{top.toplevel_tb.dut.a_wr_sel[1:0]} top.toplevel_tb.dut.a_wr_sel[1] top.toplevel_tb.dut.a_wr_sel[0]
+#{top.toplevel_tb.dut.data_wr_bregs_sel[1:0]} top.toplevel_tb.dut.data_wr_bregs_sel[1] top.toplevel_tb.dut.data_wr_bregs_sel[0]
+@22
+#{top.toplevel_tb.dut.reg_r1[4:0]} top.toplevel_tb.dut.reg_r1[4] top.toplevel_tb.dut.reg_r1[3] top.toplevel_tb.dut.reg_r1[2] top.toplevel_tb.dut.reg_r1[1] top.toplevel_tb.dut.reg_r1[0]
+#{top.toplevel_tb.dut.reg_wr[4:0]} top.toplevel_tb.dut.reg_wr[4] top.toplevel_tb.dut.reg_wr[3] top.toplevel_tb.dut.reg_wr[2] top.toplevel_tb.dut.reg_wr[1] top.toplevel_tb.dut.reg_wr[0]
+#{top.toplevel_tb.dut.const[15:0]} top.toplevel_tb.dut.const[15] top.toplevel_tb.dut.const[14] top.toplevel_tb.dut.const[13] top.toplevel_tb.dut.const[12] top.toplevel_tb.dut.const[11] top.toplevel_tb.dut.const[10] top.toplevel_tb.dut.const[9] top.toplevel_tb.dut.const[8] top.toplevel_tb.dut.const[7] top.toplevel_tb.dut.const[6] top.toplevel_tb.dut.const[5] top.toplevel_tb.dut.const[4] top.toplevel_tb.dut.const[3] top.toplevel_tb.dut.const[2] top.toplevel_tb.dut.const[1] top.toplevel_tb.dut.const[0]
+#{top.toplevel_tb.dut.data_wr[15:0]} top.toplevel_tb.dut.data_wr[15] top.toplevel_tb.dut.data_wr[14] top.toplevel_tb.dut.data_wr[13] top.toplevel_tb.dut.data_wr[12] top.toplevel_tb.dut.data_wr[11] top.toplevel_tb.dut.data_wr[10] top.toplevel_tb.dut.data_wr[9] top.toplevel_tb.dut.data_wr[8] top.toplevel_tb.dut.data_wr[7] top.toplevel_tb.dut.data_wr[6] top.toplevel_tb.dut.data_wr[5] top.toplevel_tb.dut.data_wr[4] top.toplevel_tb.dut.data_wr[3] top.toplevel_tb.dut.data_wr[2] top.toplevel_tb.dut.data_wr[1] top.toplevel_tb.dut.data_wr[0]
+@29
+#{top.toplevel_tb.dut.ula_op[1:0]} top.toplevel_tb.dut.ula_op[1] top.toplevel_tb.dut.ula_op[0]
+[pattern_trace] 1
+[pattern_trace] 0
