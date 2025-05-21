@@ -40,6 +40,8 @@ architecture a_topLevel of topLevel is
         (
             rg1 : in  unsigned (15 downto 0); -- usado como A
             rg2 : in  unsigned (15 downto 0); -- possivel cte
+            rg1 : in  unsigned (15 downto 0); -- usado como A
+            rg2 : in  unsigned (15 downto 0); -- possivel cte
             sel : in  unsigned  (1 downto 0);
             rg_out : out unsigned (15 downto 0);
             Z   : out std_logic;
@@ -64,6 +66,7 @@ architecture a_topLevel of topLevel is
     begin
 
         A: reg16bits
+        port map (clk=>clk, rst=>rst, wr_en=>A_we, data_in=>A_in, data_out=>A_out);
         port map (clk=>clk, rst=>rst, wr_en=>A_we, data_in=>A_in, data_out=>A_out);
 
         banco: bancoRegs
