@@ -40,8 +40,6 @@ architecture a_topLevel of topLevel is
         (
             rg1 : in  unsigned (15 downto 0); -- usado como A
             rg2 : in  unsigned (15 downto 0); -- possivel cte
-            rg1 : in  unsigned (15 downto 0); -- usado como A
-            rg2 : in  unsigned (15 downto 0); -- possivel cte
             sel : in  unsigned  (1 downto 0);
             rg_out : out unsigned (15 downto 0);
             Z   : out std_logic;
@@ -61,12 +59,11 @@ architecture a_topLevel of topLevel is
     end component;
 
 
-    signal result, A_in, A_out, rg1, data_wr_bRegs: unsigned(15 downto 0);
+    signal result, A_in, A_out, rg1, data_wr_bRegs, data_rg1: unsigned(15 downto 0);
 
     begin
 
         A: reg16bits
-        port map (clk=>clk, rst=>rst, wr_en=>A_we, data_in=>A_in, data_out=>A_out);
         port map (clk=>clk, rst=>rst, wr_en=>A_we, data_in=>A_in, data_out=>A_out);
 
         banco: bancoRegs
@@ -74,7 +71,7 @@ architecture a_topLevel of topLevel is
                   clk=>clk, rst=>rst, 
                   wr_en=>wr_en, data_wr=>data_wr_bRegs,
                   reg_wr=>reg_wr, reg_r1=>reg_r1, 
-                  data_r1=>rg1
+                  data_r1=>data_rg1
                  );
 
         ULA0: ULA
@@ -88,7 +85,7 @@ architecture a_topLevel of topLevel is
 
         A_in <= result when A_wr_sel = "00" else
                 const  when A_wr_sel = "01" else
-                data_r1 when A_wr_sel = "10" else
+                data_rg1 when A_wr_sel = "10" else
                 data_wr when A_wr_sel = "11" else
                 "0000000000000000";
 

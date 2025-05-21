@@ -22,6 +22,8 @@ architecture sim of topLevel_tb is
     signal negativo : std_logic;
     signal zero     : std_logic;
 
+
+    signal   finished    : std_logic := '0';
     constant clk_period : time := 10 ns;
 
     component topLevel
@@ -65,23 +67,35 @@ begin
         );
 
     -- Geração do clock
-    clk_process : process
+        reset_global: process
     begin
-        while true loop
-            clk <= '0';
-            wait for clk_period / 2;
-            clk <= '1';
-            wait for clk_period / 2;
-        end loop;
+        rst <= '1';
+        wait for clk_period*2; -- espera 2 clocks, pra garantir
+        rst <= '0';
+        wait;
     end process;
+    
+    sim_time_proc: process
+    begin
+        wait for 10 us;         
+        finished <= '1';
+        wait;
+    end process sim_time_proc;
+
+    clk_proc: process
+    begin                       -- gera clock até que sim_time_proc termine
+        while finished /= '1' loop
+            clk <= '0';
+            wait for clk_period/2;
+            clk <= '1';
+            wait for clk_period/2;
+        end loop;
+        wait;
+    end process clk_proc;
 
     -- Estímulos de teste
     stim_proc : process
     begin
-        -- Reset inicial ativo por 30ns para garantir inicialização correta
-        rst <= '1';
-        wait for 30 ns;
-        rst <= '0';
 
         wait for clk_period;
 
