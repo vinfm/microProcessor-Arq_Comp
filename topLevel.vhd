@@ -59,7 +59,7 @@ architecture a_topLevel of topLevel is
     end component;
 
 
-    signal result, A_in, A_out, rg1, data_wr_bRegs, data_rg1: unsigned(15 downto 0);
+    signal result, A_in, A_out, data_wr_bRegs, data_rg1: unsigned(15 downto 0);
 
     begin
 
@@ -68,19 +68,24 @@ architecture a_topLevel of topLevel is
 
         banco: bancoRegs
         port map (
-                  clk=>clk, rst=>rst, 
-                  wr_en=>wr_en, data_wr=>data_wr_bRegs,
-                  reg_wr=>reg_wr, reg_r1=>reg_r1, 
+                  clk=>clk, 
+                  rst=>rst, 
+                  wr_en=>wr_en, 
+                  data_wr=>data_wr_bRegs,
+                  reg_wr=>reg_wr, 
+                  reg_r1=>reg_r1, 
                   data_r1=>data_rg1
                  );
 
         ULA0: ULA
         port map(
                 rg1 => A_out,      -- acumulador
-                rg2 => rg1,        -- segundo operando banco
+                rg2 => data_rg1,        -- segundo operando
                 sel => ula_op,
                 rg_out => result,
-                Z => zero, N => negativo, V => overflow
+                Z => zero, 
+                N => negativo, 
+                V => overflow
                 );
 
         A_in <= result when A_wr_sel = "00" else
@@ -93,5 +98,7 @@ architecture a_topLevel of topLevel is
                          const when data_wr_bRegs_sel = "01" else
                          A_out when data_wr_bRegs_sel = "10" else
                          "0000000000000000";
+
+        
 
 end architecture;

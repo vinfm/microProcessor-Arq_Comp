@@ -67,7 +67,7 @@ begin
         );
 
     -- Geração do clock
-        reset_global: process
+    reset_global: process
     begin
         rst <= '1';
         wait for clk_period*2; -- espera 2 clocks, pra garantir
@@ -97,38 +97,65 @@ begin
     stim_proc : process
     begin
 
+        -- Aguarda reset
+        wait for 3*clk_period;
+
+        -- Escreve 10 no registrador 1
+        data_wr <= to_unsigned(10, 16);
+        reg_wr  <= "00001";
+        wr_en   <= '1';
+        data_wr_bRegs_sel <= "00"; -- data_wr como fonte
         wait for clk_period;
+        wr_en   <= '0';
 
-        -- Escreve valor 5 no registrador 1
-        wr_en    <= '1';
-        data_wr  <= to_unsigned(5, 16);
-        reg_wr   <= "00001";  -- Reg 1
-        wait for clk_period;
-
-        wr_en    <= '0';  -- desativa escrita
-
-        -- Lê do registrador 1
-        reg_r1   <= "00001";
-
-        -- Coloca o valor lido no acumulador (A)
-        A_wr_sel <= "00";  -- pegar resultado direto (ajuste se necessário)
-        ula_op   <= "00";  -- operação soma (ajuste conforme seu ULA)
-        A_we     <= '1';   -- ativa escrita no acumulador
-        wait for clk_period;
-        A_we     <= '0';
-
-        -- Soma acumulador com uma constante (3)
-        const    <= to_unsigned(3, 16);
-        A_wr_sel <= "00";  -- valor vindo da ULA
-        ula_op   <= "00";  -- operação soma
-        A_we     <= '1';
-        wait for clk_period;
-        A_we     <= '0';
-
-        -- Aguarda mais ciclos para observar comportamento
         wait for 100 ns;
 
-        report "Fim da simulação" severity note;
+        -- Escreve 7 no registrador 2
+        data_wr <= to_unsigned(7, 16);
+        reg_wr  <= "00010";
+        wr_en   <= '1';
+        wait for clk_period;
+        wr_en   <= '0';
+
+        wait for 100 ns;
+
+        -- Lê registrador 1 e carrega no acumulador
+        reg_r1  <= "00001";
+        A_wr_sel <= "10"; -- data_rg1 como fonte
+        A_we <= '1';
+        wait for clk_period;
+        A_we <= '0';
+
+        wait for 100 ns;
+
+        -- Soma acumulador (10) com registrador 2 (7)
+        reg_r1 <= "00010";
+        ula_op <= "00"; -- operação soma
+        A_wr_sel <= "00"; -- resultado da ULA
+        A_we <= '1';
+        wait for clk_period;
+        A_we <= '0';
+
+        wait for 100 ns;
+
+        -- Subtrai acumulador (17) com constante 5
+        const <= to_unsigned(5, 16);
+        ula_op <= "01"; -- operação subtração (ajuste conforme sua ULA)
+        A_wr_sel <= "00"; -- resultado da ULA
+        A_we <= '1';
+        wait for clk_period;
+        A_we <= '0';
+
+        wait for 100 ns;
+
+        -- Testa resultado zero
+        const <= to_unsigned(12, 16);
+        ula_op <= "01"; -- subtrai 12 de 12
+        A_wr_sel <= "00"; 
+        A_we <= '1';
+        wait for clk_period;
+        A_we <= '0';
+        wait for 50 ns;
         wait;
     end process;
 
