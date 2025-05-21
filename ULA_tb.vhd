@@ -12,16 +12,19 @@ architecture a_ULA_tb of ULA_tb is
             rg1 : in  unsigned (15 downto 0);
             rg2 : in  unsigned (15 downto 0);
             sel : in  unsigned  (1 downto 0);
-            rg0 : out unsigned (15 downto 0);
+            rg_out : out unsigned (15 downto 0);
             Z   : out std_logic;
             N   : out std_logic;
             V   : out std_logic
             );
     end component;
 
-    signal resultado, rg1, rg2: unsigned (15 downto 0);
-    signal sel: unsigned (1 downto 0);
-    signal zero, negativo, overflow: std_logic;
+    signal resultado        : unsigned(15 downto 0) := (others => '0');
+    signal rg1              : unsigned(15 downto 0) := (others => '0');
+    signal rg2              : unsigned(15 downto 0) := (others => '0');
+    signal sel              : unsigned(1 downto 0)  := (others => '0');
+    signal zero, negativo, overflow         : std_logic := '0';
+
 
 begin
     uut: ULA 
@@ -30,7 +33,7 @@ begin
                     rg1 => rg1,
                     rg2 => rg2,
                     sel => sel,
-                    rg0 => resultado,
+                    rg_out => resultado,
                     Z => zero,
                     N => negativo,
                     V => overflow
