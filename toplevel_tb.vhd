@@ -15,6 +15,7 @@ architecture sim of topLevel_tb is
     signal const    : unsigned(15 downto 0) := (others => '0');
     signal reg_wr   : unsigned(4 downto 0) := (others => '0');
     signal reg_r1   : unsigned(4 downto 0) := (others => '0');
+    signal data_wr_bRegs_sel : unsigned (1 downto 0) := (others => '0');
     signal A_wr_sel : unsigned(1 downto 0) := (others => '0');
     signal A_we     : std_logic := '0';
     signal overflow : std_logic;
@@ -33,8 +34,9 @@ architecture sim of topLevel_tb is
             const    : in unsigned(15 downto 0);
             reg_wr   : in unsigned(4 downto 0);
             reg_r1   : in unsigned(4 downto 0);
-            A_wr_sel : in unsigned(1 downto 0);
-            A_we     : in std_logic;
+            data_wr_bRegs_sel :in unsigned(1 downto 0); --seleciona fonte de dados para o banco de registradores
+            A_wr_sel : in unsigned(1 downto 0); --seleciona fonte do dado a escrever no A
+            A_we     : in std_logic;            --habilita escrita no acumulador
             overflow : out std_logic;
             negativo : out std_logic;
             zero     : out std_logic
@@ -54,6 +56,7 @@ begin
             const => const,
             reg_wr => reg_wr,
             reg_r1 => reg_r1,
+            data_wr_bRegs_sel => data_wr_bRegs_sel, 
             A_wr_sel => A_wr_sel,
             A_we => A_we,
             overflow => overflow,
