@@ -1,14 +1,14 @@
 [*]
-[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Wed May 21 21:51:13 2025
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Thu May 22 00:29:55 2025
 [*]
-[dumpfile] "/home/vinicius/Desktop/meuDiretorio/UTFPR/Disciplinas/arqComp/microProcessor-Arq_Comp/topLevel_tb.ghw"
-[dumpfile_mtime] "Wed May 21 21:39:46 2025"
-[dumpfile_size] 17738
-[savefile] "/home/vinicius/Desktop/meuDiretorio/UTFPR/Disciplinas/arqComp/microProcessor-Arq_Comp/sinais_topLevel_tb.gtkw"
+[dumpfile] "E:\UTFPR\QUINTO SEMESTRE\ARQCOMP\VHDls\microProcessor-Arq_Comp\topLevel_tb.ghw"
+[dumpfile_mtime] "Thu May 22 00:28:31 2025"
+[dumpfile_size] 17978
+[savefile] "E:\UTFPR\QUINTO SEMESTRE\ARQCOMP\VHDls\microProcessor-Arq_Comp\sinais_topLevel_tb.gtkw"
 [timestart] 0
-[size] 1000 600
-[pos] -1 -1
+[size] 1920 1009
+[pos] 1279 -774
 *0.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.toplevel_tb.
@@ -16,7 +16,7 @@
 [sst_width] 233
 [signals_width] 206
 [sst_expanded] 1
-[sst_vpaned_height] 144
+[sst_vpaned_height] 355
 @28
 top.toplevel_tb.finished
 top.toplevel_tb.zero
@@ -49,7 +49,9 @@ top.toplevel_tb.clk
 #{top.toplevel_tb.dut.reg_wr[4:0]} top.toplevel_tb.dut.reg_wr[4] top.toplevel_tb.dut.reg_wr[3] top.toplevel_tb.dut.reg_wr[2] top.toplevel_tb.dut.reg_wr[1] top.toplevel_tb.dut.reg_wr[0]
 #{top.toplevel_tb.dut.const[15:0]} top.toplevel_tb.dut.const[15] top.toplevel_tb.dut.const[14] top.toplevel_tb.dut.const[13] top.toplevel_tb.dut.const[12] top.toplevel_tb.dut.const[11] top.toplevel_tb.dut.const[10] top.toplevel_tb.dut.const[9] top.toplevel_tb.dut.const[8] top.toplevel_tb.dut.const[7] top.toplevel_tb.dut.const[6] top.toplevel_tb.dut.const[5] top.toplevel_tb.dut.const[4] top.toplevel_tb.dut.const[3] top.toplevel_tb.dut.const[2] top.toplevel_tb.dut.const[1] top.toplevel_tb.dut.const[0]
 #{top.toplevel_tb.dut.data_wr[15:0]} top.toplevel_tb.dut.data_wr[15] top.toplevel_tb.dut.data_wr[14] top.toplevel_tb.dut.data_wr[13] top.toplevel_tb.dut.data_wr[12] top.toplevel_tb.dut.data_wr[11] top.toplevel_tb.dut.data_wr[10] top.toplevel_tb.dut.data_wr[9] top.toplevel_tb.dut.data_wr[8] top.toplevel_tb.dut.data_wr[7] top.toplevel_tb.dut.data_wr[6] top.toplevel_tb.dut.data_wr[5] top.toplevel_tb.dut.data_wr[4] top.toplevel_tb.dut.data_wr[3] top.toplevel_tb.dut.data_wr[2] top.toplevel_tb.dut.data_wr[1] top.toplevel_tb.dut.data_wr[0]
-@29
+@28
 #{top.toplevel_tb.dut.ula_op[1:0]} top.toplevel_tb.dut.ula_op[1] top.toplevel_tb.dut.ula_op[0]
+@29
+#{top.toplevel_tb.sel_ula_optr[1:0]} top.toplevel_tb.sel_ula_optr[1] top.toplevel_tb.sel_ula_optr[0]
 [pattern_trace] 1
 [pattern_trace] 0

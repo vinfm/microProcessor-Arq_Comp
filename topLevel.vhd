@@ -12,6 +12,7 @@ entity topLevel is
          const    : in unsigned(15 downto 0);
          reg_wr   : in unsigned(4 downto 0);
          reg_r1   : in unsigned(4 downto 0);
+         sel_ULA_optr : in unsigned(1 downto 0); --seleciona o segundo operador da ULA
          data_wr_bRegs_sel :in unsigned(1 downto 0); --seleciona fonte de dados para o banco de registradores
          A_wr_sel : in unsigned(1 downto 0); --seleciona fonte do dado a escrever no A
          A_we     : in std_logic;            --habilita escrita no acumulador
@@ -59,7 +60,7 @@ architecture a_topLevel of topLevel is
     end component;
 
 
-    signal result, A_in, A_out, data_wr_bRegs, data_rg1: unsigned(15 downto 0);
+    signal result, A_in, seg_op_ULA, A_out, data_wr_bRegs, data_rg1: unsigned(15 downto 0);
 
     begin
 
@@ -80,13 +81,17 @@ architecture a_topLevel of topLevel is
         ULA0: ULA
         port map(
                 rg1 => A_out,      -- acumulador
-                rg2 => data_rg1,        -- segundo operando
+                rg2 => seg_op_ULA,        -- segundo operando
                 sel => ula_op,
                 rg_out => result,
                 Z => zero, 
                 N => negativo, 
                 V => overflow
                 );
+
+        seg_op_ULA <= const when sel_ULA_optr = "01" else
+                      data_rg1 when sel_ULA_optr = "00" else
+                     "0000000000000000";
 
         A_in <= result when A_wr_sel = "00" else
                 const  when A_wr_sel = "01" else

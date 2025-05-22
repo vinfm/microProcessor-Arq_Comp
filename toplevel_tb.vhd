@@ -21,6 +21,7 @@ architecture sim of topLevel_tb is
     signal overflow : std_logic;
     signal negativo : std_logic;
     signal zero     : std_logic;
+    signal sel_ULA_optr : unsigned(1 downto 0) := (others => '0');
 
 
     signal   finished    : std_logic := '0';
@@ -36,6 +37,7 @@ architecture sim of topLevel_tb is
             const    : in unsigned(15 downto 0);
             reg_wr   : in unsigned(4 downto 0);
             reg_r1   : in unsigned(4 downto 0);
+            sel_ULA_optr : in unsigned(1 downto 0); --seleciona o segundo operador da ULA
             data_wr_bRegs_sel :in unsigned(1 downto 0); --seleciona fonte de dados para o banco de registradores
             A_wr_sel : in unsigned(1 downto 0); --seleciona fonte do dado a escrever no A
             A_we     : in std_logic;            --habilita escrita no acumulador
@@ -63,7 +65,8 @@ begin
             A_we => A_we,
             overflow => overflow,
             negativo => negativo,
-            zero => zero
+            zero => zero,
+            sel_ULA_optr => sel_ULA_optr
         );
 
     -- Geração do clock
@@ -141,6 +144,7 @@ begin
         -- Subtrai acumulador (17) com constante 5
         const <= to_unsigned(5, 16);
         ula_op <= "01"; -- operação subtração (ajuste conforme sua ULA)
+        sel_ULA_optr <= "01"; -- constante como segundo operando
         A_wr_sel <= "00"; -- resultado da ULA
         A_we <= '1';
         wait for clk_period;
@@ -151,6 +155,7 @@ begin
         -- Testa resultado zero
         const <= to_unsigned(12, 16);
         ula_op <= "01"; -- subtrai 12 de 12
+        sel_ULA_optr <= "01"; -- constante como segundo operando
         A_wr_sel <= "00"; 
         A_we <= '1';
         wait for clk_period;

@@ -1,0 +1,37 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Thu May 22 00:37:35 2025
+[*]
+[dumpfile] "E:\UTFPR\QUINTO SEMESTRE\ARQCOMP\VHDls\microProcessor-Arq_Comp\topLevel_tb.ghw"
+[dumpfile_mtime] "Thu May 22 00:28:31 2025"
+[dumpfile_size] 17978
+[savefile] "E:\UTFPR\QUINTO SEMESTRE\ARQCOMP\VHDls\microProcessor-Arq_Comp\sabadin_sinais.gtkw"
+[timestart] 513600000
+[size] 958 1000
+[pos] 2240 -766
+*-26.000000 111700000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.toplevel_tb.
+[treeopen] top.toplevel_tb.dut.
+[treeopen] top.toplevel_tb.dut.banco.
+[treeopen] top.toplevel_tb.dut.banco.rg5.
+[sst_width] 233
+[signals_width] 166
+[sst_expanded] 1
+[sst_vpaned_height] 352
+@420
+#{top.toplevel_tb.dut.banco.out5[15:0]} top.toplevel_tb.dut.banco.out5[15] top.toplevel_tb.dut.banco.out5[14] top.toplevel_tb.dut.banco.out5[13] top.toplevel_tb.dut.banco.out5[12] top.toplevel_tb.dut.banco.out5[11] top.toplevel_tb.dut.banco.out5[10] top.toplevel_tb.dut.banco.out5[9] top.toplevel_tb.dut.banco.out5[8] top.toplevel_tb.dut.banco.out5[7] top.toplevel_tb.dut.banco.out5[6] top.toplevel_tb.dut.banco.out5[5] top.toplevel_tb.dut.banco.out5[4] top.toplevel_tb.dut.banco.out5[3] top.toplevel_tb.dut.banco.out5[2] top.toplevel_tb.dut.banco.out5[1] top.toplevel_tb.dut.banco.out5[0]
+#{top.toplevel_tb.dut.banco.out4[15:0]} top.toplevel_tb.dut.banco.out4[15] top.toplevel_tb.dut.banco.out4[14] top.toplevel_tb.dut.banco.out4[13] top.toplevel_tb.dut.banco.out4[12] top.toplevel_tb.dut.banco.out4[11] top.toplevel_tb.dut.banco.out4[10] top.toplevel_tb.dut.banco.out4[9] top.toplevel_tb.dut.banco.out4[8] top.toplevel_tb.dut.banco.out4[7] top.toplevel_tb.dut.banco.out4[6] top.toplevel_tb.dut.banco.out4[5] top.toplevel_tb.dut.banco.out4[4] top.toplevel_tb.dut.banco.out4[3] top.toplevel_tb.dut.banco.out4[2] top.toplevel_tb.dut.banco.out4[1] top.toplevel_tb.dut.banco.out4[0]
+#{top.toplevel_tb.dut.banco.out3[15:0]} top.toplevel_tb.dut.banco.out3[15] top.toplevel_tb.dut.banco.out3[14] top.toplevel_tb.dut.banco.out3[13] top.toplevel_tb.dut.banco.out3[12] top.toplevel_tb.dut.banco.out3[11] top.toplevel_tb.dut.banco.out3[10] top.toplevel_tb.dut.banco.out3[9] top.toplevel_tb.dut.banco.out3[8] top.toplevel_tb.dut.banco.out3[7] top.toplevel_tb.dut.banco.out3[6] top.toplevel_tb.dut.banco.out3[5] top.toplevel_tb.dut.banco.out3[4] top.toplevel_tb.dut.banco.out3[3] top.toplevel_tb.dut.banco.out3[2] top.toplevel_tb.dut.banco.out3[1] top.toplevel_tb.dut.banco.out3[0]
+#{top.toplevel_tb.dut.banco.out2[15:0]} top.toplevel_tb.dut.banco.out2[15] top.toplevel_tb.dut.banco.out2[14] top.toplevel_tb.dut.banco.out2[13] top.toplevel_tb.dut.banco.out2[12] top.toplevel_tb.dut.banco.out2[11] top.toplevel_tb.dut.banco.out2[10] top.toplevel_tb.dut.banco.out2[9] top.toplevel_tb.dut.banco.out2[8] top.toplevel_tb.dut.banco.out2[7] top.toplevel_tb.dut.banco.out2[6] top.toplevel_tb.dut.banco.out2[5] top.toplevel_tb.dut.banco.out2[4] top.toplevel_tb.dut.banco.out2[3] top.toplevel_tb.dut.banco.out2[2] top.toplevel_tb.dut.banco.out2[1] top.toplevel_tb.dut.banco.out2[0]
+#{top.toplevel_tb.dut.banco.out1[15:0]} top.toplevel_tb.dut.banco.out1[15] top.toplevel_tb.dut.banco.out1[14] top.toplevel_tb.dut.banco.out1[13] top.toplevel_tb.dut.banco.out1[12] top.toplevel_tb.dut.banco.out1[11] top.toplevel_tb.dut.banco.out1[10] top.toplevel_tb.dut.banco.out1[9] top.toplevel_tb.dut.banco.out1[8] top.toplevel_tb.dut.banco.out1[7] top.toplevel_tb.dut.banco.out1[6] top.toplevel_tb.dut.banco.out1[5] top.toplevel_tb.dut.banco.out1[4] top.toplevel_tb.dut.banco.out1[3] top.toplevel_tb.dut.banco.out1[2] top.toplevel_tb.dut.banco.out1[1] top.toplevel_tb.dut.banco.out1[0]
+#{top.toplevel_tb.dut.banco.out0[15:0]} top.toplevel_tb.dut.banco.out0[15] top.toplevel_tb.dut.banco.out0[14] top.toplevel_tb.dut.banco.out0[13] top.toplevel_tb.dut.banco.out0[12] top.toplevel_tb.dut.banco.out0[11] top.toplevel_tb.dut.banco.out0[10] top.toplevel_tb.dut.banco.out0[9] top.toplevel_tb.dut.banco.out0[8] top.toplevel_tb.dut.banco.out0[7] top.toplevel_tb.dut.banco.out0[6] top.toplevel_tb.dut.banco.out0[5] top.toplevel_tb.dut.banco.out0[4] top.toplevel_tb.dut.banco.out0[3] top.toplevel_tb.dut.banco.out0[2] top.toplevel_tb.dut.banco.out0[1] top.toplevel_tb.dut.banco.out0[0]
+@28
+#{top.toplevel_tb.sel_ula_optr[1:0]} top.toplevel_tb.sel_ula_optr[1] top.toplevel_tb.sel_ula_optr[0]
+@420
+#{top.toplevel_tb.dut.a_out[15:0]} top.toplevel_tb.dut.a_out[15] top.toplevel_tb.dut.a_out[14] top.toplevel_tb.dut.a_out[13] top.toplevel_tb.dut.a_out[12] top.toplevel_tb.dut.a_out[11] top.toplevel_tb.dut.a_out[10] top.toplevel_tb.dut.a_out[9] top.toplevel_tb.dut.a_out[8] top.toplevel_tb.dut.a_out[7] top.toplevel_tb.dut.a_out[6] top.toplevel_tb.dut.a_out[5] top.toplevel_tb.dut.a_out[4] top.toplevel_tb.dut.a_out[3] top.toplevel_tb.dut.a_out[2] top.toplevel_tb.dut.a_out[1] top.toplevel_tb.dut.a_out[0]
+#{top.toplevel_tb.dut.a_in[15:0]} top.toplevel_tb.dut.a_in[15] top.toplevel_tb.dut.a_in[14] top.toplevel_tb.dut.a_in[13] top.toplevel_tb.dut.a_in[12] top.toplevel_tb.dut.a_in[11] top.toplevel_tb.dut.a_in[10] top.toplevel_tb.dut.a_in[9] top.toplevel_tb.dut.a_in[8] top.toplevel_tb.dut.a_in[7] top.toplevel_tb.dut.a_in[6] top.toplevel_tb.dut.a_in[5] top.toplevel_tb.dut.a_in[4] top.toplevel_tb.dut.a_in[3] top.toplevel_tb.dut.a_in[2] top.toplevel_tb.dut.a_in[1] top.toplevel_tb.dut.a_in[0]
+@29
+top.toplevel_tb.zero
+[pattern_trace] 1
+[pattern_trace] 0
