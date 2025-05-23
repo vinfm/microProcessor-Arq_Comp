@@ -47,11 +47,4 @@ begin
         wait;
     end process;
 
-    stim_proc: process
-    begin
-        estado <= '0';
-        wait for 100 ns;
-        wait;
-    end process;
-
 end architecture;
