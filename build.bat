@@ -8,6 +8,14 @@ ghdl -a ULA.vhd
 ghdl -a topLevel.vhd
 ghdl -a toplevel_tb.vhd
 ghdl -a ULA_tb.vhd
+ghdl -a maq_estados.vhd
+ghdl -a maq_estados_tb.vhd
+ghdl -a rom_inst.vhd
+ghdl -a rom_inst_tb.vhd
+ghdl -e maq_estados
+ghdl -e maq_estados_tb
+ghdl -e rom_inst
+ghdl -e rom_inst_tb
 ghdl -e topLevel
 ghdl -e toplevel_tb
 ghdl -e ULA_tb
