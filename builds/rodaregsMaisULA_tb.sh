@@ -1,3 +1,6 @@
+#rode na pasta builds
+# ./roda_regsMaisULA_tb.sh
+
 cd ..;
 
 ghdl -a decoder3x6.vhd;

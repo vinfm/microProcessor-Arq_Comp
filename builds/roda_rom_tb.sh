@@ -1,3 +1,6 @@
+# Rode na pasta builds
+# ./roda_rom_tb.sh
+
 cd ..
 
 ghdl -a rom.vhd

@@ -1,3 +1,6 @@
+# Rode na pasta builds
+# ./roda_maqest_tb.sh
+
 cd ..
 
 ghdl -a maq_estados.vhd
