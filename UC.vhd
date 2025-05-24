@@ -2,14 +2,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity protouc is
+entity UC is
     port( 
         data_in  : in unsigned(15 downto 0);
         data_out  : out unsigned(15 downto 0)
    );
 end entity;
 
-architecture a_protouc of protouc is
+architecture a_UC of UC is
 
 begin
 

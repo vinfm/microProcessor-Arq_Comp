@@ -2,10 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity topLevel_tb is
+entity regsMaisULA_tb is
 end entity;
 
-architecture sim of topLevel_tb is
+architecture sim of regsMaisULA_tb is
 
     signal clk      : std_logic := '0';
     signal rst      : std_logic := '1';
@@ -27,7 +27,7 @@ architecture sim of topLevel_tb is
     signal   finished    : std_logic := '0';
     constant clk_period : time := 10 ns;
 
-    component topLevel
+    component regsMaisULA
         port(
             clk      : in std_logic;
             rst      : in std_logic;
@@ -50,7 +50,7 @@ architecture sim of topLevel_tb is
 begin
 
     -- Instancia o DUT (Device Under Test)
-    DUT: topLevel
+    DUT: regsMaisULA    
         port map (
             clk => clk,
             rst => rst,

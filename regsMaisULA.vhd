@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity topLevel is
+entity regsMaisULA is
     port(
          clk      : in std_logic;
          rst      : in std_logic;
@@ -22,7 +22,7 @@ entity topLevel is
         );
 end entity;
 
-architecture a_topLevel of topLevel is
+architecture a_regsMaisULA of regsMaisULA is
 
     component bancoRegs 
         port( 
