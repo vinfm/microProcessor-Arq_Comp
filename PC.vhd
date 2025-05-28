@@ -7,25 +7,25 @@ entity PC is
         clk      : in std_logic;
         rst      : in std_logic;
         wr_en    : in std_logic;
-        data_in  : in unsigned(15 downto 0);
-        data_out  : out unsigned(15 downto 0)
+        data_in  : in unsigned(6 downto 0);
+        data_out  : out unsigned(6 downto 0)
    );
 end entity;
 
 architecture a_PC of PC is
-    component reg16bits
+    component reg7bits
     port( 
         clk      : in std_logic;
         rst      : in std_logic;
         wr_en    : in std_logic;
-        data_in  : in unsigned(15 downto 0);
-        data_out : out unsigned(15 downto 0)
+        data_in  : in unsigned(6 downto 0);
+        data_out : out unsigned(6 downto 0)
     );
     end component;
 
 begin
 
-    PC :   reg16bits 
+    PC_reg :   reg7bits 
         port map(
             clk      => clk,
             rst      => rst,

@@ -4,8 +4,8 @@ use ieee.numeric_std.all;
 
 entity UC is
     port( 
-        data_in  : in unsigned(15 downto 0);
-        data_out  : out unsigned(15 downto 0)
+        data_in   : in unsigned(6 downto 0);
+        data_out  : out unsigned(6 downto 0)
    );
 end entity;
 
@@ -13,6 +13,6 @@ architecture a_UC of UC is
 
 begin
 
-    data_out <= data_in + "0000000000000001"; -- Adiciona 1 ao dado de entrada
+    data_out <= data_in + "0000001"; -- Adiciona 1 ao dado de entrada
 
 end architecture;
