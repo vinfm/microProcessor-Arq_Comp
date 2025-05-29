@@ -1,4 +1,4 @@
--- filepath: e:\UTFPR\QUINTO SEMESTRE\ARQCOMP\VHDls\microProcessor-Arq_Comp\PCMaisUCMaisROM_tb.vhd
+-- filepath: e:\UTFPR\QUINTO SEMESTRE\ARQCOMP\VHDls\microProcessor-Arq_Comp\tbs\PCMaisUCMaisROM_tb.vhd
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -9,15 +9,13 @@ end entity;
 architecture tb of PCMaisUCMaisROM_tb is
     signal clk      : std_logic := '0';
     signal rst      : std_logic := '1';
-    signal wr_en    : std_logic := '0';
-    signal data_out : unsigned(15 downto 0);
+    signal wr_en    : std_logic := '1';
 
     component PCMaisUCMaisROM
         port(
             clk      : in std_logic;
             rst      : in std_logic;
-            wr_en    : in std_logic;
-            data_out : out unsigned(15 downto 0)
+            wr_en    : in std_logic
         );
     end component;
 
@@ -27,8 +25,7 @@ begin
         port map(
             clk      => clk,
             rst      => rst,
-            wr_en    => wr_en,
-            data_out => data_out
+            wr_en    => wr_en
         );
 
     -- Clock de 10ns
@@ -48,22 +45,14 @@ begin
     begin
         -- Reset ativo
         rst <= '1';
-        wr_en <= '0';
         wait for 15 ns;
 
-        -- Libera reset e ativa escrita
+        -- Libera reset
         rst <= '0';
-        wr_en <= '1';
-        wait for 100 ns;
-
-        -- Desativa escrita
-        wr_en <= '0';
-        wait for 30 ns;
+        wait for 150 ns;
 
         -- Finaliza simulação
         wait;
     end process;
-
-   
 
 end architecture;

@@ -1,5 +1,6 @@
 @echo off
 REM build.bat - Compila todos os arquivos VHDL do projeto
+ghdl -a reg1bit.vhd
 ghdl -a reg7bits.vhd
 ghdl -a rom.vhd
 ghdl -a ./tbs/rom_inst_tb.vhd

@@ -21,5 +21,5 @@ begin
       end if;
    end process;
 
-   estado <= estado_reg;
+   estado <= estado_reg; -- 0 ta em fetch 1 ta em decode/execute
 end architecture;
