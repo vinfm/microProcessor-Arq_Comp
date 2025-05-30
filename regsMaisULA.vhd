@@ -7,7 +7,7 @@ entity regsMaisULA is
          clk      : in std_logic;
          rst      : in std_logic;
          wr_en    : in std_logic;
-         ula_op   : in unsigned(1 downto 0);
+         ula_op   : in unsigned(2 downto 0);
          data_wr  : in unsigned(15 downto 0);
          const    : in unsigned(15 downto 0);
          reg_wr   : in unsigned(4 downto 0);

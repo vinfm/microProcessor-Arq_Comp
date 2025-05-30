@@ -30,9 +30,19 @@ architecture a_PCMaisUCMaisROM of PCMaisUCMaisROM is
         instr     : in unsigned(15 downto 0); -- Instrução de 16 bits
         data_in   : in unsigned(6 downto 0);
         data_out  : out unsigned(6 downto 0);
-        estado    : out std_logic
+        estado    : out std_logic;
+        sourceB   : out std_logic;
+        wr_enBanco: out std_logic;
+        wr_enA    : out std_logic;
+        wr_enIR   : out std_logic;
+        OP_ULA    : out unsigned(1 downto 0);
+        banco_rcv : out unsigned(1 downto 0);
+        A_rcv     : out unsigned(1 downto 0);
+        wr_enPC   : out std_logic
     );
     end component;
+
+
 
     signal estado_uc : std_logic;
 
@@ -46,7 +56,25 @@ architecture a_PCMaisUCMaisROM of PCMaisUCMaisROM is
     signal UCout, PCout: unsigned(6 downto 0);
     signal instr : unsigned(15 downto 0); -- Instrução de 16 bits
     
+    component reg16bits 
+        port( 
+            clk      : in std_logic;
+            rst      : in std_logic;
+            wr_en    : in std_logic;
+            data_in  : in unsigned(15 downto 0);
+            data_out : out unsigned(15 downto 0)
+        );
+    end component;
 begin
+
+    inst_reg : reg16bits
+        port map(
+            clk      => clk,
+            rst      => rst,
+            wr_en    => wr_en,
+            data_in  => instr,
+            data_out => instr
+        );
 
     PC_top :   PC 
         port map(

@@ -4,12 +4,21 @@ use ieee.numeric_std.all;
 
 entity UC is
     port( 
-        clk       : in std_logic;
+        clk        : in std_logic;
         instr      : in unsigned(15 downto 0); -- Instrução de 16 bits
-        rst       : in std_logic;
-        data_in   : in unsigned(6 downto 0);
-        data_out  : out unsigned(6 downto 0);
-        estado    : out std_logic
+        rst        : in std_logic;
+        data_in    : in unsigned(6 downto 0);
+        data_out   : out unsigned(6 downto 0);
+        estado     : out std_logic;
+        sourceB    : out std_logic;
+        wr_enBanco : out std_logic;
+        wr_enA     : out std_logic;
+        wr_enIR    : out std_logic;
+        OP_ULA     : out unsigned(1 downto 0);
+        banco_rcv  : out unsigned(1 downto 0);
+        A_rcv      : out unsigned(1 downto 0);
+        wr_enPC    : out std_logic
+        
     );
 end entity;
 
@@ -34,6 +43,7 @@ architecture a_UC of UC is
     signal opcode: unsigned(3 downto 0);
 
 begin
+    
    -- coloquei o opcode nos 4 bits MSB
    opcode <= instr(15 downto 12);
 
