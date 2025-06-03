@@ -24,7 +24,6 @@ architecture a_PCMaisUCMaisROM of PCMaisUCMaisROM is
 
     component UC
     port( 
-
         clk       : in std_logic;
         rst       : in std_logic;
         instr     : in unsigned(15 downto 0); -- Instrução de 16 bits
@@ -42,9 +41,15 @@ architecture a_PCMaisUCMaisROM of PCMaisUCMaisROM is
     );
     end component;
 
+    component maq_estados
+        port(
+            clk    : in std_logic;
+            rst    : in std_logic;
+            estado : out std_logic -- ou unsigned(1 downto 0) se preferir
+        );
+    end component;
 
-
-    signal estado_uc : std_logic;
+    signal estado_uc : unsigned(1 downto 0); -- Estado de 2 bits
 
     component rom
     port(
@@ -65,7 +70,16 @@ architecture a_PCMaisUCMaisROM of PCMaisUCMaisROM is
             data_out : out unsigned(15 downto 0)
         );
     end component;
+
+    
 begin
+
+    maq_est : maq_estados
+        port map(
+            clk    => clk,
+            rst    => rst,
+            estado => estado_uc
+        );
 
     inst_reg : reg16bits
         port map(
