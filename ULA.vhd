@@ -5,13 +5,13 @@ use ieee.numeric_std.all;
 entity ULA is
     port
     (
-        rg1 : in  unsigned (15 downto 0);
-        rg2 : in  unsigned (15 downto 0);
-        sel : in  unsigned  (1 downto 0);
-        rg_out : out unsigned (15 downto 0);
-        Z   : out std_logic;
-        N   : out std_logic;
-        V   : out std_logic
+        rg1 : in  unsigned (15 downto 0); --operando A da ULA
+        rg2 : in  unsigned (15 downto 0); --operando B da ULA
+        sel : in  unsigned  (1 downto 0); --selecao da operacao da ULA
+        rg_out : out unsigned (15 downto 0); --resultado da ULA
+        Z   : out std_logic; -- flag de zero
+        N   : out std_logic; -- flag de negativo
+        V   : out std_logic -- flag de overflow
     );
 end entity;
 

@@ -4,13 +4,13 @@ use ieee.numeric_std.all;
 
 entity bancoRegs is
     port( 
-        clk      : in std_logic;
-        rst      : in std_logic;
-        wr_en    : in std_logic;
-        data_wr  : in unsigned(15 downto 0);
-        reg_wr   : in unsigned(4 downto 0);
-        reg_r1   : in unsigned(4 downto 0);
-        data_r1  : out unsigned(15 downto 0)
+        clk      : in std_logic; --clock
+        rst      : in std_logic; --reset geral
+        wr_en    : in std_logic; -- write enable do banco de regs
+        data_wr  : in unsigned(15 downto 0); --dado a escrever no banco de registradores
+        reg_wr   : in unsigned(4 downto 0); --registrador a escrever o dado no banco de registradores
+        reg_r1   : in unsigned(4 downto 0); --registrador a ler do banco de registradores
+        data_r1  : out unsigned(15 downto 0) --dado lido do banco de registradores
    );
 end entity;
 

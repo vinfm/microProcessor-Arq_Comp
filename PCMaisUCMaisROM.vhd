@@ -18,11 +18,11 @@ end entity;
 architecture a_PCMaisUCMaisROM of PCMaisUCMaisROM is
     component PC
     port( 
-        clk      : in std_logic;
-        rst      : in std_logic;
-        wr_en    : in std_logic;
-        data_in  : in unsigned(6 downto 0);
-        data_out : out unsigned(6 downto 0)
+        clk      : in std_logic; --clock
+        rst      : in std_logic; --reset geral
+        wr_en    : in std_logic; -- write enable do PC
+        data_in  : in unsigned(6 downto 0); -- endereço do PC atualizado
+        data_out  : out unsigned(6 downto 0) -- endereço do PC atual
    );
 
     end component;
