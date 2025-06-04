@@ -4,21 +4,20 @@ use ieee.numeric_std.all;
 
 entity UC is
     port( 
-        clk        : in std_logic;
+        clk        : in std_logic; -- clock
         instr      : in unsigned(15 downto 0); -- Instrução de 16 bits
-        rst        : in std_logic;
-        data_in    : in unsigned(6 downto 0);
+        rst        : in std_logic; --reset geral
+        data_in    : in unsigned(6 downto 0); -- endereço do PC
         estado     : in unsigned(1 downto 0); -- Estado de 2 bits
-        data_out   : out unsigned(6 downto 0);
-        sourceB    : out std_logic;
-        wr_enBanco : out std_logic;
-        wr_enA     : out std_logic;
-        wr_enIR    : out std_logic;
-        OP_ULA     : out unsigned(1 downto 0);
-        banco_rcv  : out unsigned(2 downto 0);
-        A_rcv      : out unsigned(2 downto 0);
-        wr_enPC    : out std_logic
-        
+        data_out   : out unsigned(6 downto 0); -- endereço do PC atualizado
+        sourceB    : out std_logic; --fonte do segundo operando da ULA
+        wr_enBanco : out std_logic; -- write enable do banco de regs
+        wr_enA     : out std_logic; -- write enable do acumulador
+        wr_enIR    : out std_logic; -- write enable do registrador da instrução
+        OP_ULA     : out unsigned(1 downto 0); -- código de operação da ULA
+        banco_rcv  : out unsigned(2 downto 0); -- qual registrador vai receber dados
+        A_rcv      : out unsigned(2 downto 0); -- fonte que o acumulador recebe (imediato, do mov ou da ULA)
+        wr_enPC    : out std_logic --habilita escrita no PC
     );
 end entity;
 
