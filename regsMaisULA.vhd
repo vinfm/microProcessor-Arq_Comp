@@ -7,11 +7,11 @@ entity regsMaisULA is
          clk      : in std_logic; --clock
          rst      : in std_logic; --reset geral
          B_wen    : in std_logic; --habilita escrita no banco de registradores
-         ula_op   : in unsigned(2 downto 0); --código de operação da ULA
+         ula_op   : in unsigned(1 downto 0); --código de operação da ULA
          data_wr  : in unsigned(15 downto 0); --dado a escrever no banco de registradores
          const    : in unsigned(15 downto 0); --constante
-         reg_wr   : in unsigned(4 downto 0); --registrador a escrever o dado no banco de registradores
-         reg_r1   : in unsigned(4 downto 0); --registrador a ler do banco de registradores
+         reg_wr   : in unsigned(2 downto 0); --registrador a escrever o dado no banco de registradores
+         reg_r1   : in unsigned(2 downto 0); --registrador a ler do banco de registradores
          sel_ULA_optr : in unsigned(1 downto 0); --seleciona o segundo operador da ULA
          data_wr_bRegs_sel :in unsigned(1 downto 0); --seleciona fonte de dados para o banco de registradores
          A_wr_sel : in unsigned(1 downto 0); --seleciona fonte do dado a escrever no A
@@ -30,8 +30,8 @@ architecture a_regsMaisULA of regsMaisULA is
             rst      : in std_logic; --reset geral
             wr_en    : in std_logic; -- write enable do banco de regs
             data_wr  : in unsigned(15 downto 0); --dado a escrever no banco de registradores
-            reg_wr   : in unsigned(4 downto 0); --registrador a escrever o dado no banco de registradores
-            reg_r1   : in unsigned(4 downto 0); --registrador a ler do banco de registradores
+            reg_wr   : in unsigned(2 downto 0); --registrador a escrever o dado no banco de registradores
+            reg_r1   : in unsigned(2 downto 0); --registrador a ler do banco de registradores
             data_r1  : out unsigned(15 downto 0) --dado lido do banco de registradores
             );
     end component;
@@ -61,7 +61,6 @@ architecture a_regsMaisULA of regsMaisULA is
 
 
     signal result, A_in, seg_op_ULA, A_out, data_wr_bRegs, data_rg1: unsigned(15 downto 0);
-
     begin
 
         A: reg16bits
@@ -81,7 +80,7 @@ architecture a_regsMaisULA of regsMaisULA is
         ULA0: ULA
         port map(
                 rg1 => A_out,      -- acumulador
-                rg2 => seg_op_ULA,        -- segundo operando
+                rg2 => seg_op_ULA, -- segundo operando
                 sel => ula_op,
                 rg_out => result,
                 Z => zero, 
@@ -104,7 +103,5 @@ architecture a_regsMaisULA of regsMaisULA is
                          data_rg1 when data_wr_bRegs_sel = "10" else
                          data_wr when data_wr_bRegs_sel = "11" else
                          "0000000000000000";
-
-        
 
 end architecture;

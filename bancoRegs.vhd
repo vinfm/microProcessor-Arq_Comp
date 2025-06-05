@@ -8,8 +8,8 @@ entity bancoRegs is
         rst      : in std_logic; --reset geral
         wr_en    : in std_logic; -- write enable do banco de regs
         data_wr  : in unsigned(15 downto 0); --dado a escrever no banco de registradores
-        reg_wr   : in unsigned(4 downto 0); --registrador a escrever o dado no banco de registradores
-        reg_r1   : in unsigned(4 downto 0); --registrador a ler do banco de registradores
+        reg_wr   : in unsigned(2 downto 0); --registrador a escrever o dado no banco de registradores
+        reg_r1   : in unsigned(2 downto 0); --registrador a ler do banco de registradores
         data_r1  : out unsigned(15 downto 0) --dado lido do banco de registradores
    );
 end entity;
@@ -27,7 +27,7 @@ architecture a_bancoRegs of bancoRegs is
 
     component decoder3x6 
     port(
-        sel:in unsigned(4 downto 0);
+        sel:in unsigned(2 downto 0);
         s0: out std_logic;
         s1: out std_logic;
         s2: out std_logic;
@@ -39,15 +39,16 @@ architecture a_bancoRegs of bancoRegs is
 
     signal out0, out1, out2, out3, out4, out5: unsigned(15 downto 0);
     signal wr_en0, wr_en1, wr_en2, wr_en3, wr_en4, wr_en5: std_logic;
+    signal wr_en0s, wr_en1s, wr_en2s, wr_en3s, wr_en4s, wr_en5s: std_logic;
 
     begin
 
-        data_r1 <=  out0 when reg_r1="00000" else
-                    out1 when reg_r1="00001" else
-                    out2 when reg_r1="00010" else
-                    out3 when reg_r1="00011" else
-                    out4 when reg_r1="00100" else
-                    out5 when reg_r1="00101" 
+        data_r1 <=  out0 when reg_r1="000" else
+                    out1 when reg_r1="001" else
+                    out2 when reg_r1="010" else
+                    out3 when reg_r1="011" else
+                    out4 when reg_r1="100" else
+                    out5 when reg_r1="101" 
                     else "0000000000000000";
 
         decoder_wr : decoder3x6 
@@ -61,22 +62,29 @@ architecture a_bancoRegs of bancoRegs is
             s5=> wr_en5
             );
 
+        wr_en0s <= wr_en0 and wr_en;
+        wr_en1s <= wr_en1 and wr_en;
+        wr_en2s <= wr_en2 and wr_en;
+        wr_en3s <= wr_en3 and wr_en;
+        wr_en4s <= wr_en4 and wr_en;
+        wr_en5s <= wr_en5 and wr_en;
+
         rg0: reg16bits
-        port map (clk=>clk, rst=>rst, wr_en=>wr_en0, data_in=>data_wr, data_out=>out0);
+        port map (clk=>clk, rst=>rst, wr_en=>wr_en0s, data_in=>data_wr, data_out=>out0);
 
         rg1: reg16bits
-        port map (clk=>clk, rst=>rst, wr_en=>wr_en1, data_in=>data_wr, data_out=>out1);
+        port map (clk=>clk, rst=>rst, wr_en=>wr_en1s, data_in=>data_wr, data_out=>out1);
 
         rg2: reg16bits
-        port map (clk=>clk, rst=>rst, wr_en=>wr_en2, data_in=>data_wr, data_out=>out2);
+        port map (clk=>clk, rst=>rst, wr_en=>wr_en2s, data_in=>data_wr, data_out=>out2);
 
         rg3: reg16bits
-        port map (clk=>clk, rst=>rst, wr_en=>wr_en3, data_in=>data_wr, data_out=>out3);
+        port map (clk=>clk, rst=>rst, wr_en=>wr_en3s, data_in=>data_wr, data_out=>out3);
 
         rg4: reg16bits
-        port map (clk=>clk, rst=>rst, wr_en=>wr_en4, data_in=>data_wr, data_out=>out4);
+        port map (clk=>clk, rst=>rst, wr_en=>wr_en4s, data_in=>data_wr, data_out=>out4);
 
         rg5: reg16bits
-        port map (clk=>clk, rst=>rst, wr_en=>wr_en5, data_in=>data_wr, data_out=>out5);
+        port map (clk=>clk, rst=>rst, wr_en=>wr_en5s, data_in=>data_wr, data_out=>out5);
 
 end architecture;

@@ -12,7 +12,7 @@ begin
    process(clk,rst)
    begin
       if rst='1' then
-         estado_s <= "00";
+         estado_s <= "10";
       elsif rising_edge(clk) then
          if estado_s="10" then        -- se agora esta em 2
             estado_s <= "00";         -- o prox vai voltar ao zero

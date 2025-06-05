@@ -1,0 +1,15 @@
+A: LD R3, 5  --endereço 0 
+B: LD R4, 8  --endereço 1
+C: 3 instruções
+    MOV A, R3 --endereço 2
+    ADD A, A, R4 --endereço 3
+    MOV R5, A --endereço 4
+D: 3 instruções
+    MOV A, R5 --endereço 5
+    SUBI A, A, 1 --endereço 6
+    MOV R5, A --endereço 7
+E: JUMP 20 --endereço 8
+F: LD R5, 0 --endereço 9
+G: MOV R3, R5 --endereço 20
+H: JUMP 3 --endereço 21
+I: LD R3, 0 --endereço 22

@@ -11,14 +11,39 @@ architecture a_rom of rom is
    type mem is array (0 to 127) of unsigned(15 downto 0);
    constant conteudo_rom : mem := (
       -- caso endereco => conteudo
-      0  => "0000000000000000", -- NOP
-      1  => "0000000000000000", -- NOP
-      2  => "1111000000000101", -- JMP para 5
-      3  => "0000000000000000", -- NOP (deve ser pulado)
-      4  => "0000000000000000", -- NOP (deve ser pulado)
-      5  => "0000000000000000", -- NOP
-      6  => "1111000000000010", -- JMP para 2 (loop)
-      7  => "0000000000000000", -- NOP (deve ser pulado)
+      0  => "0010011000000101", -- carrega o valor 5 no registrador r3
+
+      1  => "0010100000001000", -- carrega o valor 8 no registrador r4
+
+      -- adiciona r3 e r4, resultado em r5
+      2  => "0100111011000000", -- mov A, r3
+      3  => "0101111100111111", -- ADD A, A, R4
+      4  => "0100101111000000", -- MOV R5, A 
+
+      --Subtrai 1 de R5
+      5  => "0100111101000000", -- MOV A, R5
+      6  => "0110111111000001",  --SUBI A, A, 1
+      7  => "0100101111000000", -- MOV R5, A 
+
+      -- salta para o endereço 20
+      8  => "1111000000010100", -- jump para o endereço 20
+
+      9  => "0010101000000000", -- ld r5, 0
+      10 => "0000000000000000", -- NOP
+      11 => "0000000000000000", -- NOP
+      12 => "0000000000000000", -- NOP
+      13 => "0000000000000000", -- NOP
+      14 => "0000000000000000", -- NOP
+      15 => "0000000000000000", -- NOP
+      16 => "0000000000000000", -- NOP
+      17 => "0000000000000000", -- NOP
+      18 => "0000000000000000", -- NOP
+      19 => "0000000000000000", -- NOP
+      
+      -- volta para o endereço 20
+      20 => "0100011101000000", -- mov r3, r5
+      21 => "1111000000000011", -- jump 3
+      22 => "0010011000000000", -- LD R3, 0
       others => (others=>'0')
    );
 
