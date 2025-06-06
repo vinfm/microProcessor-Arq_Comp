@@ -2,14 +2,14 @@
 ADD:  0101 ddd sss sss 111 -- ADD destino, fonte1(3 ao 5), fonte2(6 ao 8)
 SUB:  0101 ddd sss sss 000 -- SUB destino, fonte1(3 ao 5), fonte2(6 ao 8)
 SUBI: 0110 ddd sss cccccc -- SUBI destino, fonte(6 ao 8), constante
-CMPI: 1001 ddd ccccccccc -- CMPI "destino", constante
+CMPI: 1001 ddd ccccccccc -- CMPI registrador, constante
 LD:   0010 ddd ccccccccc  -- LD destino, constante
 MOV:  0100 ddd sss xxxxxx -- MOV destino, fonte(6 ao 8) 
 JUMP: 1111 xxxxx ccccccc -- JUMP constante
 NOP:  0000 xxxxxxxxxxxx -- NOP 
 
-BEQ:  1100 ----------- 010 (falta a parte do meio)
-BGE:  1100 ----------- 101 (falta a parte do meio)
+BEQ:  1100 ccccccc x 010 
+BGE:  1100 ccccccc x 101 
 
 x: bits que não importam
 sss: registrador fonte
