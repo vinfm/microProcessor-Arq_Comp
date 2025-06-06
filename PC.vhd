@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
+-- não vejo mais serventia nesse aqui, mas vou deixar por enquanto
 entity PC is
     port( 
         clk      : in std_logic; --clock

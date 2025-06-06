@@ -11,39 +11,19 @@ architecture a_rom of rom is
    type mem is array (0 to 127) of unsigned(15 downto 0);
    constant conteudo_rom : mem := (
       -- caso endereco => conteudo
-      0  => "0010011000000101", -- carrega o valor 5 no registrador r3
-
-      1  => "0010100000001000", -- carrega o valor 8 no registrador r4
-
-      -- adiciona r3 e r4, resultado em r5
-      2  => "0100111011000000", -- mov A, r3
-      3  => "0101111100111111", -- ADD A, A, R4
-      4  => "0100101111000000", -- MOV R5, A 
-
-      --Subtrai 1 de R5
-      5  => "0100111101000000", -- MOV A, R5
-      6  => "0110111111000001",  --SUBI A, A, 1
-      7  => "0100101111000000", -- MOV R5, A 
-
-      -- salta para o endereço 20
-      8  => "1111000000010100", -- jump para o endereço 20
-
-      9  => "0010101000000000", -- ld r5, 0
-      10 => "0000000000000000", -- NOP
-      11 => "0000000000000000", -- NOP
-      12 => "0000000000000000", -- NOP
-      13 => "0000000000000000", -- NOP
-      14 => "0000000000000000", -- NOP
-      15 => "0000000000000000", -- NOP
-      16 => "0000000000000000", -- NOP
-      17 => "0000000000000000", -- NOP
-      18 => "0000000000000000", -- NOP
-      19 => "0000000000000000", -- NOP
-      
-      -- volta para o endereço 20
-      20 => "0100011101000000", -- mov r3, r5
-      21 => "1111000000000011", -- jump 3
-      22 => "0010011000000000", -- LD R3, 0
+      0  => B"0010_011_000000000", -- carrega o valor 0 no registrador R3
+      1  => B"0010_100_000000000", -- carrega o valor 0 no registrador R4
+      2  => B"0100_011_111_000000", -- carrega o valor de R3 no acumulador A
+      3  => B"0101_111_100_111_111", -- soma A com R4
+      4  => B"0100_100_111_101010", -- carrega o valor de A no registrador R4
+      5  => B"0010_111_000000001", -- carrega o valor 1 no acumulador A
+      6  => B"0101_111_011_111_111", -- soma A com R3
+      7  => B"0100_011_111_010101", -- carrega o valor do acumulador em R3
+      8  => B"0100_111_011_110011", -- carrega o valor de R3 no acumulador A
+      9  => B"1001_111_000000001", -- compara o valor do acumulador A com o valor 30 (11110)-mudei para 1
+      10 => B"1100_0011110_01_101", -- branch para o endereço 12 se A for maior ou igual 
+      11 => B"1111_01010_0000010", -- jump para o endereço 2
+      12 => B"0100_101_100_001111", -- mov r5, r4 --carrega o valor de R4 em R5
       others => (others=>'0')
    );
 

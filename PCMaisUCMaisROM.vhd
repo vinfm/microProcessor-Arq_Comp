@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
+-- não vejo mais serventia nesse aqui, mas vou deixar por enquanto
 entity PCMaisUCMaisROM is
     port( 
         clk        : in std_logic; --clock
@@ -82,7 +82,6 @@ architecture a_PCMaisUCMaisROM of PCMaisUCMaisROM is
             data_out : out unsigned(15 downto 0)
         );
     end component;
-
     
 begin
 

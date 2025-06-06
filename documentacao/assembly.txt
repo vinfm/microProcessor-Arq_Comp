@@ -1,15 +1,17 @@
-A: LD R3, 5  --endereço 0 
-B: LD R4, 8  --endereço 1
+-- Assembly para o lab de condicionais
+A:  endereço 0 - LD R3, 0  -- 0010_011_000000000
+B:  endereço 1 - LD R4, 0  -- 0010_100_000000000
 C: 3 instruções
-    MOV A, R3 --endereço 2
-    ADD A, A, R4 --endereço 3
-    MOV R5, A --endereço 4
+    endereço 2 - MOV A, R3 -- 0100_011_111_000000
+    endereço 3 - ADD A, A, R4 -- 0101_111_100_111_111
+    endereço 4 - MOV R4, A -- 0100_100_111_101010
 D: 3 instruções
-    MOV A, R5 --endereço 5
-    SUBI A, A, 1 --endereço 6
-    MOV R5, A --endereço 7
-E: JUMP 20 --endereço 8
-F: LD R5, 0 --endereço 9
-G: MOV R3, R5 --endereço 20
-H: JUMP 3 --endereço 21
-I: LD R3, 0 --endereço 22
+    endereço 5 - LD A, 1 -- 0010_111_000000001
+    endereço 6 - ADD A, A, R3 -- 0101_111_011_111_111
+    endereço 7 - MOV R3, A -- 0100_011_111_010101
+E: 4 instruções
+    endereço 8 - MOV A, R3 -- 0100_111_011_110011
+    endereço 9 - CMPI A, 30 -- 1001_111_000011110
+    endereço 10 - BGE 2 -- 1100_0011110_01_101
+    endereço 11 - JUMP 2 -- 1111_01010_0000010
+F:  endereço 12 - MOV R5, R4 -- 0100_101_100_001111

@@ -7,13 +7,13 @@ entity reg1bit is
    port( clk      : in std_logic;
          rst      : in std_logic;
          wr_en    : in std_logic;
-         data_in  : in std_logic;  -- Alterado de unsigned(6 downto 0) para std_logic
-         data_out : out std_logic  -- Alterado de unsigned(6 downto 0) para std_logic
+         data_in  : in std_logic; 
+         data_out : out std_logic  
    );
 end entity;
 
 architecture a_reg1bit of reg1bit is  -- Nome da arquitetura atualizado para corresponder à entidade
-   signal registro: std_logic;  -- Alterado de unsigned(6 downto 0) para std_logic
+   signal registro: std_logic;  
 begin
    process(clk, rst)
    begin
