@@ -106,7 +106,6 @@ begin
                         is_add = '1' or 
                         is_sub = '1'  or
                         is_subi = '1' or
-                        is_cmpi = '1' or
                         (instr(11 downto 9)="111" and (is_mov = '1' or is_ld = '1'))
                         )   else '0';
 
