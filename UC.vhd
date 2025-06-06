@@ -98,16 +98,16 @@ begin
              "00"; 
 
     wr_enBanco <= '1' when  estado="10" 
-                        and (is_mov = '1'  or 
-                        is_ld = '1'
-                        )  and not (is_jump = '1') else '0';
+                        and (is_mov = '1' or 
+                        is_ld = '1'  
+                        )   else '0';
 
     wr_enA <= '1' when estado="10" and  (
                         is_add = '1' or 
                         is_sub = '1'  or
                         is_subi = '1' or
                         is_cmpi = '1' or
-                        is_mov = '1'
-                        )  and not (is_jump = '1') else '0';
+                        (instr(11 downto 9)="111" and (is_mov = '1' or is_ld = '1'))
+                        )   else '0';
 
 end architecture;
