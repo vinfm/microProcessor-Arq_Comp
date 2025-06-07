@@ -1,14 +1,14 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Fri Jun  6 23:35:02 2025
+[*] Sat Jun  7 16:44:45 2025
 [*]
 [dumpfile] "/home/vinicius/Desktop/meuDiretorio/UTFPR/Disciplinas/arqComp/microProcessor-Arq_Comp/sinais/processador_tb.ghw"
-[dumpfile_mtime] "Fri Jun  6 23:31:50 2025"
-[dumpfile_size] 17020
+[dumpfile_mtime] "Sat Jun  7 16:44:17 2025"
+[dumpfile_size] 11688
 [savefile] "/home/vinicius/Desktop/meuDiretorio/UTFPR/Disciplinas/arqComp/microProcessor-Arq_Comp/sinais/sinais_processador_tb.gtkw"
-[timestart] 872300000
+[timestart] 3175700000
 [size] 1000 600
-[pos] 30 257
+[pos] -1 -1
 *-25.000000 796837000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.processador_tb.
 [treeopen] top.processador_tb.uut.
@@ -21,9 +21,10 @@
 @28
 top.processador_tb.rst
 top.processador_tb.clk
-@22
+@25
 [color] 2
 #{top.processador_tb.uut.pc.data_out[6:0]} top.processador_tb.uut.pc.data_out[6] top.processador_tb.uut.pc.data_out[5] top.processador_tb.uut.pc.data_out[4] top.processador_tb.uut.pc.data_out[3] top.processador_tb.uut.pc.data_out[2] top.processador_tb.uut.pc.data_out[1] top.processador_tb.uut.pc.data_out[0]
+@24
 [color] 3
 #{top.processador_tb.uut.rom_instr.endereco[6:0]} top.processador_tb.uut.rom_instr.endereco[6] top.processador_tb.uut.rom_instr.endereco[5] top.processador_tb.uut.rom_instr.endereco[4] top.processador_tb.uut.rom_instr.endereco[3] top.processador_tb.uut.rom_instr.endereco[2] top.processador_tb.uut.rom_instr.endereco[1] top.processador_tb.uut.rom_instr.endereco[0]
 @28

@@ -20,8 +20,8 @@ architecture a_rom of rom is
       6  => B"0101_111_011_111_111", -- soma A com R3
       7  => B"0100_011_111_010101", -- carrega o valor do acumulador em R3
       8  => B"0100_111_011_110011", -- carrega o valor de R3 no acumulador A
-      9  => B"1001_111_000000001", -- compara o valor do acumulador A com o valor 30 (11110)-mudei para 1
-      10 => B"1100_0011110_01_101", -- branch para o endereço 12 se A for maior ou igual 
+      9  => B"1001_111_000011110", -- compara o valor do acumulador A com o valor 30 (11110)-mudei para 1
+      10 => B"1100_0000010_01_101", -- branch para o endereço 12 se A for maior ou igual 
       11 => B"1111_01010_0000010", -- jump para o endereço 2
       12 => B"0100_101_100_001111", -- mov r5, r4 --carrega o valor de R4 em R5
       others => (others=>'0')

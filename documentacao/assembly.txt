@@ -12,6 +12,6 @@ D: 3 instruções
 E: 4 instruções
     endereço 8 - MOV A, R3 -- 0100_111_011_110011
     endereço 9 - CMPI A, 30 -- 1001_111_000011110
-    endereço 10 - BGE 2 -- 1100_0011110_01_101
+    endereço 10 - BGE 2 -- 1100_0000010_01_101
     endereço 11 - JUMP 2 -- 1111_01010_0000010
 F:  endereço 12 - MOV R5, R4 -- 0100_101_100_001111

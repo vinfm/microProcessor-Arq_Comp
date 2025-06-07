@@ -30,11 +30,11 @@ begin
     begin
 
         wait for 20 ns; -- Atraso inicial para garantir que o reset seja aplicado antes do clock
-        while now < 10000 ns loop
+        while now < 40000 ns loop
             clk <= '0';
-            wait for 100 ns;
+            wait for 10 ns;
             clk <= '1';
-            wait for 100 ns;
+            wait for 10 ns;
         end loop;
         wait;
     end process;
