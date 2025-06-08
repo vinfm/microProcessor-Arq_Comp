@@ -1,17 +1,18 @@
     MSB                     LSB
-ADD:  0101 ddd sss sss 111 -- ADD destino, fonte1(3 ao 5), fonte2(6 ao 8)
-SUB:  0101 ddd sss sss 000 -- SUB destino, fonte1(3 ao 5), fonte2(6 ao 8)
-SUBI: 0110 ddd sss cccccc -- SUBI destino, fonte(6 ao 8), constante
-CMPI: 1001 ddd ccccccccc -- CMPI registrador, constante
-LD:   0010 ddd ccccccccc  -- LD destino, constante
-MOV:  0100 ddd sss xxxxxx -- MOV destino, fonte(6 ao 8) 
-JUMP: 1111 xxxxx ccccccc -- JUMP constante
-NOP:  0000 xxxxxxxxxxxx -- NOP 
+ADD:  0101 ddd sss sss 111 -- ADD destino, fonte1(3 ao 5), fonte2(6 ao 8)  --op code HEX = 5 final F ou 7
+SUB:  0101 ddd sss sss 000 -- SUB destino, fonte1(3 ao 5), fonte2(6 ao 8)  --op code HEX = 5 final 8 ou 0
+SUBI: 0110 ddd sss cccccc  -- SUBI destino, fonte(6 ao 8), constante       --op code HEX = 6
+CMPI: 1001 ddd ccccccccc   -- CMPI registrador, constante                  --op code HEX = 9
+LD:   0010 ddd ccccccccc   -- LD destino, constante                        --op code HEX = 2
+MOV:  0100 ddd sss xxxxxx  -- MOV destino, fonte(6 ao 8)                   --op code HEX = 4
+JUMP: 1111 xxxxx ccccccc   -- JUMP constante                               --op code HEX = F
+NOP:  0000 xxxxxxxxxxxx    -- NOP                                          --op code HEX = 0
 
-BEQ:  1100 ccccccc xx 010 
-BGE:  1100 ccccccc xx 101 
+BEQ:  1100 ccccccc xx 010 --op code HEX = C
+BGE:  1100 ccccccc xx 101 --op code HEX = C
 
 x: bits que não importam
 sss: registrador fonte
 ddd: registrador destino
 c: representa bits de constante
+
