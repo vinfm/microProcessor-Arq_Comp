@@ -2,7 +2,7 @@
 A:  endereço 0 - LD R3, 0  -- 0010_011_000000000
 B:  endereço 1 - LD R4, 0  -- 0010_100_000000000
 C: 3 instruções
-    endereço 2 - MOV A, R3 -- 0100_011_111_000000
+    endereço 2 - MOV A, R3 -- 0100_111_011_000000
     endereço 3 - ADD A, A, R4 -- 0101_111_100_111_111
     endereço 4 - MOV R4, A -- 0100_100_111_101010
 D: 3 instruções
@@ -12,6 +12,6 @@ D: 3 instruções
 E: 4 instruções
     endereço 8 - MOV A, R3 -- 0100_111_011_110011
     endereço 9 - CMPI A, 30 -- 1001_111_000011110
-    endereço 10 - BGE 2 -- 1100_0000010_01_101
+    endereço 10 - BGE 2 -- 1100_00000010_1_101
     endereço 11 - JUMP 2 -- 1111_01010_0000010
 F:  endereço 12 - MOV R5, R4 -- 0100_101_100_001111

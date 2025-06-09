@@ -8,8 +8,8 @@ MOV:  0100 ddd sss xxxxxx -- MOV destino, fonte(6 ao 8)
 JUMP: 1111 xxxxx ccccccc -- JUMP constante
 NOP:  0000 xxxxxxxxxxxx -- NOP 
 
-BEQ:  1100 ccccccc xx 010 
-BGE:  1100 ccccccc xx 101 
+BEQ:  1100 cccccccc x 010 
+BGE:  1100 cccccccc x 101 
 
 x: bits que não importam
 sss: registrador fonte

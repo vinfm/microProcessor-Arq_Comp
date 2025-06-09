@@ -32,6 +32,7 @@ architecture a_UC of UC is
 
     signal prox_estado, pula_Cond_BGE, cond_BGE: std_logic;
     signal prox_pc : unsigned(6 downto 0);
+    signal endereco_cond : unsigned(7 downto 0);
 
     
     signal is_add  : std_logic;
@@ -70,10 +71,11 @@ begin
 
     cond_BGE <= '1' when (flag_neg = flag_overflow) else '0'; -- pula se for BGE e a condição for verdadeira
     pula_Cond_BGE <= (is_bge and cond_BGE);
+    endereco_cond <= '0' & data_in + instr(11 downto 4); -- endereço de destino do branch
     --PC só muda no execute de JUMP, senão incrementa normalmente
     data_out <= instr(6 downto 0) when (is_jump = '1') else
-                data_in + instr(11 downto 5) when (is_beq = '1' and flag_zero='1') else
-                data_in + instr(11 downto 5) when (pula_Cond_BGE='1') else
+                endereco_cond(6 downto 0) when (is_beq = '1' and flag_zero='1') else
+                endereco_cond(6 downto 0) when (pula_Cond_BGE='1') else
                 data_in + 1 ;           -- fetch ou decode: mantém
 
     -- Decodifica o a op da ULA
