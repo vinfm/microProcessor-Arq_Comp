@@ -7,6 +7,8 @@ LD:   0010 ddd ccccccccc   -- LD destino, constante                        --op 
 MOV:  0100 ddd sss xxxxxx  -- MOV destino, fonte(6 ao 8)                   --op code HEX = 4
 JUMP: 1111 xxxxx ccccccc   -- JUMP constante                               --op code HEX = F
 NOP:  0000 xxxxxxxxxxxx    -- NOP                                          --op code HEX = 0
+LW:   0011 ddd sss xxxxxx
+SW:   0100 ddd sss xxxxxx
 
 BEQ:  1100 cccccccc x 010 
 BGE:  1100 cccccccc x 101 

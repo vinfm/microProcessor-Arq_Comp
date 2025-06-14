@@ -59,7 +59,8 @@ architecture a_processador of processador is
         constante  : out unsigned(15 downto 0); -- constante a ser usada
         wr_enBanco : out std_logic; -- write enable do banco de regs
         wr_enA     : out std_logic; -- write enable do acumulador
-        wr_en_f    : out std_logic -- write enable do registrador de flags
+        wr_en_f    : out std_logic; -- write enable do registrador de flags
+        wr_en_ram  : out std_logic  -- write enable da RAM
     );
     end component;
 
@@ -88,21 +89,25 @@ architecture a_processador of processador is
          ula_op   : in unsigned(1 downto 0); --código de operação da ULA
          data_wr  : in unsigned(15 downto 0); --dado a escrever no banco de registradores
          const    : in unsigned(15 downto 0); --constante
-         reg_wr   : in unsigned(2 downto 0); --registrador a escrever o dado no banco de registradores
-         reg_r1   : in unsigned(2 downto 0); --registrador a ler do banco de registradores
+         reg_wr   : in unsigned(2 downto 0); --registrador a escrever
+         reg_r1   : in unsigned(2 downto 0); --registrador a ler
+         rg_ad_ram : in unsigned(2 downto 0); --endereço da RAM a ser usado
+         rg_dt_ram : in unsigned(2 downto 0); --dado a ser escrito na RAM
          sel_ULA_optr : in unsigned(1 downto 0); --seleciona o segundo operador da ULA
          data_wr_bRegs_sel :in unsigned(1 downto 0); --seleciona fonte de dados para o banco de registradores
          A_wr_sel : in unsigned(1 downto 0); --seleciona fonte do dado a escrever no A
          A_wen    : in std_logic;  --habilita escrita no acumulador
          overflow : out std_logic; --flag de overflow da ULA
          negativo : out std_logic; --flag de negativo da ULA
-         zero     : out std_logic  --flag de zero da ULA
+         zero     : out std_logic; --flag de zero da ULA
+         dt_to_ram : out unsigned(15 downto 0); --dado a ser escrito na RAM
+         adr_ram : out unsigned(6 downto 0) --endereço da RAM a ser usado
         );
     end component; 
 -- Fim Banco de Registradores + ULA + Acumulador --
 
 -- Sinais de controle e fontes de dados --
-    signal wr_enBanco_s, wr_enA_s, wr_en_f_s: std_logic; -- sinais de write enable
+    signal wr_enBanco_s, wr_enA_s, wr_en_f_s, wr_en_ram_s: std_logic; -- sinais de write enable
     signal ff_z_i, ff_z_o, ff_n_i, ff_n_o, ff_v_i, ff_v_o: std_logic; -- Sinais de entrada e saídas dos flip flops de flags
     signal sourceB_s: unsigned(1 downto 0); -- Fonte do segundo operando da ULA
     signal banco_rcv_s, A_rcv_s: unsigned(1 downto 0);
@@ -121,6 +126,17 @@ architecture a_processador of processador is
         data_in  : in std_logic; 
         data_out : out std_logic  
         );
+    end component;
+
+    -- RAM
+    component ram
+    port( 
+            clk      : in std_logic;
+            endereco : in unsigned(6 downto 0);
+            wr_en    : in std_logic;
+            dado_in  : in unsigned(15 downto 0);
+            dado_out : out unsigned(15 downto 0) 
+    );
     end component;
 
 begin
@@ -154,7 +170,8 @@ begin
             constante  => const_s,
             wr_enBanco => wr_enBanco_s,
             wr_enA     => wr_enA_s,
-            wr_en_f    => wr_en_f_s 
+            wr_en_f    => wr_en_f_s,
+            wr_en_ram  => wr_en_ram_s
         );
 
     PC: reg7bits
@@ -188,9 +205,9 @@ begin
             rst              => rst,
             B_wen            => wr_enBanco_s, -- Habilita escrita no banco de registradores
             ula_op           => op_ULA_s, -- Código de operação da ULA
-            data_wr          => mem_data_read, -- Dado a escrever no banco de registradores
+            data_wr          => mem_data_read, -- Dado a ler da memória 
             const            => const_s, -- Constante 
-            reg_wr           => rd_s, -- Registrador a escrever 
+            reg_wr           => rd_s, -- Registrador a escrever
             reg_r1           => reg_src_s, -- Registrador a ler 
             sel_ULA_optr     => sourceB_s, -- Seleciona o segundo operador da ULA
             data_wr_bRegs_sel=> banco_rcv_s, -- Seleciona fonte de dados para o banco de registradores
@@ -228,5 +245,13 @@ begin
             data_out => ff_z_o -- Saída da flag de zero
         );
 
+    a_ram: ram
+        port map(
+            clk      => clk,
+            endereco => , -- Endereço da RAM
+            wr_en    => wr_en_ram_s, -- Habilita escrita na RAM
+            dado_in  => , -- Dado a escrever na RAM
+            dado_out =>  mem_data_read -- Dado lido da RAM (simulação não usa memória)
+        );
 
 end architecture;

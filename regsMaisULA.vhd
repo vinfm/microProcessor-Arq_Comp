@@ -8,17 +8,21 @@ entity regsMaisULA is
          rst      : in std_logic; --reset geral
          B_wen    : in std_logic; --habilita escrita no banco de registradores
          ula_op   : in unsigned(1 downto 0); --código de operação da ULA
-         data_wr  : in unsigned(15 downto 0); --dado a escrever no banco de registradores
+         data_wr  : in unsigned(15 downto 0); --dado a ser lido da RAM
          const    : in unsigned(15 downto 0); --constante
          reg_wr   : in unsigned(2 downto 0); --registrador a escrever o dado no banco de registradores
-         reg_r1   : in unsigned(2 downto 0); --registrador a ler do banco de registradores
+         reg_r1   : in unsigned(2 downto 0); --registrador a ler
+         rg_ad_ram : in unsigned(2 downto 0); --endereço da RAM a ser usado
+         rg_dt_ram : in unsigned(2 downto 0); --dado a ser escrito na RAM
          sel_ULA_optr : in unsigned(1 downto 0); --seleciona o segundo operador da ULA
          data_wr_bRegs_sel :in unsigned(1 downto 0); --seleciona fonte de dados para o banco de registradores
          A_wr_sel : in unsigned(1 downto 0); --seleciona fonte do dado a escrever no A
          A_wen     : in std_logic;            --habilita escrita no acumulador
          overflow : out std_logic; --flag de overflow da ULA
          negativo : out std_logic; --flag de negativo da ULA
-         zero     : out std_logic --flag de zero da ULA
+         zero     : out std_logic; --flag de zero da ULA
+         dt_to_ram : out unsigned(15 downto 0); --dado a ser escrito na RAM
+         adr_ram : out unsigned(6 downto 0) --endereço da RAM a ser usado
         );
 end entity;
 
@@ -103,5 +107,11 @@ architecture a_regsMaisULA of regsMaisULA is
                          data_rg1 when data_wr_bRegs_sel = "10" else
                          data_wr when data_wr_bRegs_sel = "11" else
                          "0000000000000000";
+
+        dt_to_ram <= A_out when rg_dt_ram = "111" else
+                     data_rg1;
+
+        adr_ram <= A_out(6 downto 0) when rg_ad_ram = "111" else
+                   data_rg1(6 downto 0); -- Endereço da RAM a ser usado, assumindo que o A contém o endereço
 
 end architecture;
