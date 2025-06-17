@@ -91,8 +91,6 @@ architecture a_processador of processador is
          const    : in unsigned(15 downto 0); --constante
          reg_wr   : in unsigned(2 downto 0); --registrador a escrever
          reg_r1   : in unsigned(2 downto 0); --registrador a ler
-         rg_ad_ram : in unsigned(2 downto 0); --endereço da RAM a ser usado
-         rg_dt_ram : in unsigned(2 downto 0); --dado a ser escrito na RAM
          sel_ULA_optr : in unsigned(1 downto 0); --seleciona o segundo operador da ULA
          data_wr_bRegs_sel :in unsigned(1 downto 0); --seleciona fonte de dados para o banco de registradores
          A_wr_sel : in unsigned(1 downto 0); --seleciona fonte do dado a escrever no A
@@ -115,8 +113,9 @@ architecture a_processador of processador is
 
     signal op_ULA_s: unsigned(1 downto 0); -- Código de operação da ULA
     signal reg_src_s, rd_s: unsigned(2 downto 0); -- Registradores fonte e destino
-    signal mem_data_read: unsigned(15 downto 0); -- Dado lido da memória (simulação não usa memória)
-    
+    signal mem_data_read, dt_to_ram_s: unsigned(15 downto 0); -- Dado lido da memória (simulação não usa memória)
+    signal adr_ram_s: unsigned(6 downto 0); -- Endereço da RAM a ser usado (simulação não usa memória)
+
 -- Flip Flops para armazenar as flags
     component reg1bit 
     port( 
@@ -215,7 +214,9 @@ begin
             A_wen            => wr_enA_s, -- Habilita escrita no acumulador
             overflow         => ff_v_i, -- Flag de overflow da ULA 
             negativo         => ff_n_i, -- Flag de negativo da ULA 
-            zero             => ff_z_i  -- Flag de zero da ULA 
+            zero             => ff_z_i,  -- Flag de zero da ULA 
+            dt_to_ram        => dt_to_ram_s, -- Dado a ser escrito na RAM (simulação não usa memória)
+            adr_ram          => adr_ram_s -- Endereço da RAM a ser usado (simulação não usa memória)
         );
 
     ff_negativo: reg1bit
@@ -248,9 +249,9 @@ begin
     a_ram: ram
         port map(
             clk      => clk,
-            endereco => , -- Endereço da RAM
+            endereco => adr_ram_s, -- Endereço da RAM
             wr_en    => wr_en_ram_s, -- Habilita escrita na RAM
-            dado_in  => , -- Dado a escrever na RAM
+            dado_in  => dt_to_ram_s, -- Dado a escrever na RAM
             dado_out =>  mem_data_read -- Dado lido da RAM (simulação não usa memória)
         );
 

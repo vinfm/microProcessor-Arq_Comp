@@ -13,6 +13,7 @@ ghdl -a PC.vhd
 ghdl -a UC.vhd
 
 ghdl -a reg1bit.vhd
+ghdl -a ram.vhd
 
 ghdl -a processador.vhd
 ghdl -e processador

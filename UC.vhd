@@ -58,7 +58,7 @@ begin
   is_jump <= '1' when instr(15 downto 12) = "1111" else '0';                               -- opcode de JUMP
   is_nop  <= '1' when instr(15 downto 12) = "0000" else '0';                               -- opcode de NOP
   is_lw   <= '1' when instr(15 downto 12) = "0011" else '0';                               -- opcode de LW
-  is_sw   <= '1' when instr(15 downto 12) = "0100" else '0';                               -- opcode de SW
+  is_sw   <= '1' when instr(15 downto 12) = "1101" else '0';                               -- opcode de SW
   is_beq  <= '1' when instr(15 downto 12) = "1100" and instr(2 downto 0) = "010" else '0'; -- opcode de Branch if equal
   is_bge  <= '1' when instr(15 downto 12) = "1100" and instr(2 downto 0) = "101" else '0'; -- opcode de Branch if greater or equal
 
@@ -85,11 +85,11 @@ begin
             "00";
 
   -- Registrador fonte, se houver
-  reg_src <= instr(8 downto 6) when (is_add = '1' or is_sub = '1' or is_ld = '1' or is_mov = '1') else
+  reg_src <= instr(8 downto 6) when (is_add = '1' or is_sub = '1' or is_ld = '1' or is_mov = '1' or is_sw='1') else
              "101"; -- Se não for nenhuma dessas, não tem fonte
 
   -- Registrador destino, se houver
-  rd <= instr(11 downto 9) when (is_ld = '1' or is_mov = '1'
+  rd <= instr(11 downto 9) when (is_ld = '1' or is_mov = '1' or is_lw='1'
                                 ) else -- aqui muda só em operações ld, mov e escrita de memória, provavelmente
         "111"; -- Se não for nenhuma dessas, não tem destino além do acumulador
 
@@ -121,7 +121,7 @@ begin
 
   -- Write enable do acumulador
   wr_enA <= '1' when estado = "10" and (
-    is_add = '1' or is_sub = '1' or is_subi = '1' or (instr(11 downto 9) = "111" and (is_mov = '1' or is_ld = '1' or is_lw))
+    is_add = '1' or is_sub = '1' or is_subi = '1' or (instr(11 downto 9) = "111" and (is_mov = '1' or is_ld = '1'))
   ) else
             '0';
 
