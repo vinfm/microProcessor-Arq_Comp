@@ -46,6 +46,8 @@ architecture a_UC of UC is
   signal is_sw   : std_logic;
   signal is_bge  : std_logic;
   signal is_beq  : std_logic;
+  signal is_xor  : std_logic;
+  signal is_and  : std_logic;
 
 begin
 

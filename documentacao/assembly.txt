@@ -1,3 +1,77 @@
--- Assembly para o lab de ram
-endereço 0 - LD R3, 0  -- 0010_100_000000100
-endereço 1 - MV A, R3  -- 0101_111_011_010_001
+-- Assembly1 para o lab de ram -- teste de branch com delta negativo
+## sim, eu testei com os 128 endereços ##
+
+# listar o dado inicial dos endereços
+endereço 0 - LD R3, 0       -- 0010_100_000000000
+endereço 1 - LD R1, 1       -- 0010_001_000000001
+endereço 2 - MV A, R3       -- 0101_111_011_010_001
+endereco 3 - LW R3, A       -- 0011_011_111_000000
+endereço 4 - ADD A, A, R1   -- 0101_111_001_111_111
+endereço 5 - CMPI A, 128    -- 1001_111_010000000
+endereço 6 - BGE 2          -- 1100_00000010_1_101
+endereço 7 - JUMP 3         -- 1111_11111_0000011
+
+# carrega valores na ram
+endereço 8 - LD A, 0        -- 0010_111_000000000
+endereço 9 - MV R3, A       -- 0101_011_111_010_001
+endereço 10 - SW R3, A      -- 1101_111_011_000000
+endereço 11 - ADD A, A, R1  -- 0101_111_001_111_111
+endereço 12 - CMPI A, 128   -- 1001_111_010000000
+endereço 13 - BGE -13       -- 1100_11110011_1_101
+endereço 14 - JUMP 9        -- 1111_11111_0001001
+
+-- Assembly2 para o lab de ram
+
+# carrega valores na ram
+endereço 0 - LD A, 0        -- 0010_111_000000000
+endereço 1 - LD R1, 1       -- 0010_001_000000001
+endereço 2 - MV R3, A       -- 0101_011_111_010_001
+endereço 3 - SW R3, A       -- 1101_111_011_000000
+endereço 4 - ADD A, A, R1   -- 0101_111_001_111_111
+endereço 5 - CMPI A, 32     -- 1001_111_000100000
+endereço 6 - BGE 2          -- 1100_00000010_1_101
+endereço 7 - JUMP 1         -- 1111_11111_0000001
+
+# salva alguns valores aleatórios
+endereço 8 - LD R0, 7       -- 0010_000_000000111
+endereço 9 - LD R1, 19      -- 0010_001_000010011
+endereço 10 - LD R2, 17     -- 0010_010_000010001
+endereço 11 - LD R3, 87     -- 0010_011_001010111
+endereço 12 - LD R4, 129    -- 0010_100_010000001
+endereço 13 - LD R5, -20    -- 0010_101_111101100
+endereço 14 - LD A, 44      -- 0010_111_000101100
+endereço 15 - SW R5, A      -- 1101_111_101_000000
+endereço 16 - LD A, 124     -- 0010_111_001111100
+endereço 17 - SW R0, A      -- 1101_111_000_000000
+endereço 18 - LD A, 99      -- 0010_111_001100011
+endereço 19 - SW R1, A      -- 1101_111_001_000000
+endereço 20 - LD A, 65      -- 0010_111_001000001
+endereço 21 - SW R3, A      -- 1101_111_011_000000
+endereço 22 - LD A, 22      -- 0010_111_000010110
+endereço 23 - SW R4, A      -- 1101_111_100_000000
+endereço 24 - LD A, 3       -- 0010_111_000000011
+endereço 25 - SW R2, A      -- 1101_111_010_000000
+
+# listar o dado inicial dos endereços
+endereço 26 - LD R3, 0      -- 0010_011_000000000
+endereço 27 - LD R1, 1      -- 0010_001_000000001
+endereço 28 - MV A, R3      -- 0101_111_011_010_001
+endereco 29 - LW R3, A      -- 0011_011_111_000000
+endereço 30 - ADD A, A, R1  -- 0101_111_001_111_111
+endereço 31 - CMPI A, 128   -- 1001_111_010000000
+endereço 32 - BGE 2         -- 1100_00000010_1_101
+endereço 33 - JUMP 29       -- 1111_11111_0011101
+
+# carregar alguns valores da memória (testando os aleatórios)
+endereço 34 - LD A, 22      -- 0010_111_000010110
+endereço 35 - LW R2, A      -- 0011_010_111_000000
+endereço 36 - LD A, 65      -- 0010_111_001000001
+endereço 37 - LW R5, A      -- 0011_101_111_000000
+endereço 38 - LD A, 3       -- 0010_111_000000011
+endereço 39 - LW R1, A      -- 0011_001_111_000000
+endereço 40 - LD A, 44      -- 0010_111_000101100
+endereço 41 - LW R0, A      -- 0011_000_111_000000
+endereço 42 - LD A, 124     -- 0010_111_001111100
+endereço 43 - LW R3, A      -- 0011_011_111_000000
+endereço 44 - LD A, 99      -- 0010_111_001100011
+endereço 45 - LW R4, A      -- 0011_100_111_000000
