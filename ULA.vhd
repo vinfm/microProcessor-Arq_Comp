@@ -25,7 +25,7 @@ begin
 
            rg1-rg2 when sel = "01" else --sub
 
-           rg1 or rg2 when sel = "10" else -- ou lógico
+           rg1 xor rg2 when sel = "10" else -- xor lógico
 
            rg1 and rg2 when sel = "11" else -- and lógico
            "0000000000000000";

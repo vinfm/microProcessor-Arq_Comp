@@ -51,17 +51,23 @@ begin
 
   is_add  <= '1' when instr(15 downto 12) = "0101" and instr(2 downto 0) = "111" else '0'; -- opcode de ADD
   is_sub  <= '1' when instr(15 downto 12) = "0101" and instr(2 downto 0) = "000" else '0'; -- opcode de SUB
+  is_xor  <= '1' when instr(15 downto 12) = "0101" and instr(2 downto 0) = "010" else '0'; -- opcode de XOR
+  is_and  <= '1' when instr(15 downto 12) = "0101" and instr(2 downto 0) = "011" else '0'; -- opcode de AND
+  is_mov  <= '1' when instr(15 downto 12) = "0101" and instr(2 downto 0) = "001" else '0'; -- opcode de MOV
+
   is_subi <= '1' when instr(15 downto 12) = "0110" else '0';                               -- opcode de SUBI
   is_cmpi <= '1' when instr(15 downto 12) = "1001" else '0';                               -- opcode de CMPI
   is_ld   <= '1' when instr(15 downto 12) = "0010" else '0';                               -- opcode de LD
-  is_mov  <= '1' when instr(15 downto 12) = "0100" else '0';                               -- opcode de MOV
+
   is_jump <= '1' when instr(15 downto 12) = "1111" else '0';                               -- opcode de JUMP
   is_nop  <= '1' when instr(15 downto 12) = "0000" else '0';                               -- opcode de NOP
-  is_lw   <= '1' when instr(15 downto 12) = "0011" else '0';                               -- opcode de LW
-  is_sw   <= '1' when instr(15 downto 12) = "1101" else '0';                               -- opcode de SW
+
   is_beq  <= '1' when instr(15 downto 12) = "1100" and instr(2 downto 0) = "010" else '0'; -- opcode de Branch if equal
   is_bge  <= '1' when instr(15 downto 12) = "1100" and instr(2 downto 0) = "101" else '0'; -- opcode de Branch if greater or equal
 
+  is_lw   <= '1' when instr(15 downto 12) = "0011" else '0';                               -- opcode de LW
+  is_sw   <= '1' when instr(15 downto 12) = "1101" else '0';                               -- opcode de SW
+  
   --habilita ou não a escrita no IR
   wr_enIR <= '1' when (estado = "00" and not (is_jump = '1' and estado = "10")) else
              '0';
@@ -82,10 +88,12 @@ begin
   -- Decodifica o a op da ULA
   OP_ULA <= "00" when is_add = '1' else
             "01" when is_sub = '1' or is_cmpi = '1' or is_subi = '1' else
+            "10" when is_xor = '1' else
+            "11" when is_and = '1' else
             "00";
 
   -- Registrador fonte, se houver
-  reg_src <= instr(8 downto 6) when (is_add = '1' or is_sub = '1' or is_ld = '1' or is_mov = '1' or is_sw='1') else
+  reg_src <= instr(8 downto 6) when (is_add = '1' or is_sub = '1' or is_ld = '1' or is_mov = '1' or is_sw='1' or is_and='1' or is_xor='1') else
              "101"; -- Se não for nenhuma dessas, não tem fonte
 
   -- Registrador destino, se houver

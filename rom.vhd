@@ -13,8 +13,8 @@ architecture a_rom of rom is
       -- caso endereco => conteudo
       0  => B"0010_100_000000100", -- carrega o valor 4 no registrador R4
       1  => B"0010_111_000000000", -- carrega o valor 0 no Acumulador A
-      2  => B"1101_111_100_000000", -- sw 
-      3  => B"0011_010_111_000000", -- lw
+      2  => B"1101_111_100_000000", -- sw r4, A
+      3  => B"0011_010_111_000000", -- lw r2, A
       4  => B"0101_111_100_111_111", -- soma A com R4
       5  => B"0100_100_111_101010", -- carrega o valor de A no registrador R4
       6  => B"0010_111_000000001", -- carrega o valor 1 no acumulador A
