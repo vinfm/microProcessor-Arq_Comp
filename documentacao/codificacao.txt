@@ -1,25 +1,36 @@
     MSB                     LSB
+# instruções com apenas registradores
 ADD:  0101 ddd sss sss 111 -- ADD destino, fonte1(3 ao 5), fonte2(6 ao 8)
 SUB:  0101 ddd sss sss 000 -- SUB destino, fonte1(3 ao 5), fonte2(6 ao 8)
 XOR:  0101 ddd sss sss 010 -- XOR destino, fonte1(3 ao 5), fonte2(6 ao 8)
 AND:  0101 ddd sss sss 011 -- AND destino, fonte1(3 ao 5), fonte2(6 ao 8)
-#fonte1 e destino sempre são sempre o acumulador das operações acima
+    #fonte1 e destino sempre são sempre o acumulador das operações acima
 
 MOV:  0101 ddd sss xxx 001 -- MOV destino, fonte(6 ao 8) 
 
+# instruções envolvendo imediato
 SUBI: 0110 ddd sss cccccc  -- SUBI destino, fonte(6 ao 8), constante    # os opcodes são diferentes
 CMPI: 1001 sss ccccccccc   -- CMPI registrador (acumulador), constante  # para manter um maior intervalo
 LD:   0010 ddd ccccccccc   -- LD destino, constante                     # para as constantes
-# registrador do CMPI, destino e fonte do SUBI são sempre o acumulador
+    # registrador do CMPI, destino e fonte do SUBI são sempre o acumulador
 
+# instrução de salto incondicional
 JUMP: 1111 xxxxx ccccccc   -- JUMP constante
+
+# instrução de nop
 NOP:  0000 xxxxxxxxxxxx    -- NOP
 
+# instruções de salto condicional
 BEQ:  1100 cccccccc x 010 -- BEQ delta
 BGE:  1100 cccccccc x 101 -- BGE delta
 
+# instruções de memória
 LW:   0011 ddd aaa xxxxxx -- LW destino, endereço # o endereço é sempre o acumulador e o destino vem do banco de registradores
 SW:   1101 aaa sss xxxxxx -- SW fonte, endereço   # o endereço é sempre o acumulador e a fonte vem do banco de registradores
+
+# detalhes
+opcode - 4 bits MSB
+func   - 3 bits MSB, quando há (instruções apenas com registradores e branches)
 
 x: bits que não importam
 sss: registrador fonte
