@@ -5,7 +5,8 @@ use ieee.numeric_std.all;
 entity processador is
     port( 
         clk             : in std_logic; --clock
-        rst             : in std_logic --reset geral
+        rst             : in std_logic; --reset geral
+        bus_debug       : out unsigned(15 downto 0); --bus de debug para visualização
    );
 end entity;
 
@@ -254,5 +255,7 @@ begin
             dado_in  => dt_to_ram_s, -- Dado a escrever na RAM
             dado_out =>  mem_data_read -- Dado lido da RAM (simulação não usa memória)
         );
+
+    bus_debug <= mem_data_read; -- bus debug para a validação
 
 end architecture;
