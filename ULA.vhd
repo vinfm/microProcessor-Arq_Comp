@@ -36,7 +36,7 @@ begin
          '1' when (sel="01" and rg1(15)/=rg2(15) and result(15)/=rg1(15)) else
             '0';
 
-    Z <= '1' when result = "0000000000000000" and overflow='0' else -- flag de zero
+    Z <= '1' when result = "0000000000000000" else -- flag de zero
         '0';
 
     V <= overflow;

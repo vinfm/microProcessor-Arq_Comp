@@ -76,12 +76,12 @@ begin
 
   -- habilita ou não a escrita no PC
   wr_enPC <= '1' when estado = "01" else
-             '0'; --Só habilita escrita no PC no execute de JUMP
+             '0';
 
   cond_BGE      <= '1' when (flag_neg = flag_overflow) else '0'; -- pula se for BGE e a condição for verdadeira
   pula_Cond_BGE <= (is_bge and cond_BGE);
   endereco_cond <= '0' & data_in + instr(11 downto 4);           -- endereço de destino do branch
-  --PC só muda no execute de JUMP, senão incrementa normalmente
+
   data_out      <= instr(6 downto 0)         when (is_jump = '1') else
                    endereco_cond(6 downto 0) when (is_beq = '1' and flag_zero = '1') else
                    endereco_cond(6 downto 0) when (pula_Cond_BGE = '1') else
