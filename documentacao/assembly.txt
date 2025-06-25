@@ -12,94 +12,58 @@
 08 - BGE 2             -- Se A >= 63, pula 2 linhas (vai para linha 10, fim do preenchimento)
 09 - JUMP 3            -- Volta para linha 03 (continua preenchendo)
 
--- Começa a eliminação de múltiplos de 2 --
-10 - LD R2, 2          -- R2 = 2 (divisor atual)
-11 - LD R3, 4          -- R3 = 4 (primeiro múltiplo de 2 a eliminar)
-12 - MOV A, R3         -- A = R3 (A recebe o endereço do múltiplo)
-13 - LW R0, A          -- R0 = RAM[A] (carrega valor da RAM no A)
-14 - MOV R4, R0        -- R4 = R0 (copia valor para R4)
-15 - MOV R5, R4        -- R5 = R4 (salva valor antes da subtração)
-16 - SUB R4, R4, R2    -- R4 = R4 - R2 (subtrai divisor até R4 < 0)
-17 - CMPI R4, 0        -- Compara R4 com 0
-18 - BGE -3            -- Se R4 >= 0, volta para MOV R5, R4 (linha 15)
-19 - CMPI R5, 0        -- Compara valor salvo antes da última subtração
-20 - BEQ 2             -- Se R5 == 0, pula para linha 22 (vai zerar o múltiplo)
-21 - JUMP 23           -- Senão, pula para próximo endereço
-22 - LD R0, 0          -- R0 = 0 (prepara para zerar RAM)
-23 - SW R0, A          -- RAM[A] = 0 (zera múltiplo)
-24 - ADD R3, R3, R1    -- R3 = R3 + 1 (próximo endereço)
-25 - CMPI R3, 63       -- Compara R3 com 63 (fim da RAM?)
-26 - BGE 2             -- Se R3 >= 63, pula para linha 28 (fim da eliminação de múltiplos de 2)
-27 - JUMP 12           -- Volta para linha 12 (continua eliminando)
+-- Eliminação eficiente de múltiplos de 2 --
+10 - LD R2, 2          -- R2 = 2 (divisor)
+11 - LD R3, 4          -- R3 = 4 (primeiro múltiplo de 2)
+12 - MOV A, R3         -- A = R3
+13 - LD R0, 0          -- R0 = 0 (valor para zerar)
+14 - SW R0, A          -- RAM[A] = 0 (zera múltiplo)
+15 - ADD R3, R3, R2    -- R3 = R3 + R2 (vai para o próximo múltiplo)
+16 - CMPI R3, 63       -- Compara R3 com 63
+17 - BGE 2             -- Se R3 >= 63, pula para o próximo bloco
+18 - JUMP 12           -- Volta para linha 12 (continua zerando múltiplos)
 
--- Começa a eliminação de múltiplos de 3 --
-28 - LD R2, 3          -- R2 = 3 (novo divisor)
-29 - LD R3, 6          -- R3 = 6 (primeiro múltiplo de 3)
+-- Eliminação eficiente de múltiplos de 3 --
+19 - LD R2, 3          -- R2 = 3 (divisor)
+20 - LD R3, 6          -- R3 = 6 (primeiro múltiplo de 3)
+21 - MOV A, R3         -- A = R3
+22 - LD R0, 0          -- R0 = 0
+23 - SW R0, A          -- RAM[A] = 0
+24 - ADD R3, R3, R2    -- R3 = R3 + R2
+25 - CMPI R3, 63       -- Compara R3 com 63
+26 - BGE 2             -- Se R3 >= 63, pula para o próximo bloco
+27 - JUMP 21           -- Volta para linha 21
+
+-- Eliminação eficiente de múltiplos de 5 --
+28 - LD R2, 5          -- R2 = 5 (divisor)
+29 - LD R3, 10         -- R3 = 10 (primeiro múltiplo de 5)
 30 - MOV A, R3         -- A = R3
-31 - LW R0, A          -- R0 = RAM[A]
-32 - MOV R4, R0        -- R4 = R0
-33 - MOV R5, R4        -- R5 = R4 (salva valor antes da subtração)
-34 - SUB R4, R4, R2    -- R4 = R4 - R2
-35 - CMPI R4, 0        -- Compara R4 com 0
-36 - BGE -3            -- Se R4 >= 0, volta para MOV R5, R4 (linha 33)
-37 - CMPI R5, 0        -- Compara valor salvo antes da última subtração
-38 - BEQ 2             -- Se R5 == 0, pula para linha 40 (zera múltiplo)
-39 - JUMP 41           -- Senão, pula para próximo endereço
-40 - LD R0, 0          -- R0 = 0 (prepara para zerar RAM)
-41 - SW R0, A          -- RAM[A] = 0 (zera múltiplo)
-42 - ADD R3, R3, R1    -- R3 = R3 + 1 (próximo endereço)
-43 - CMPI R3, 63       -- Compara R3 com 63 (fim da RAM?)
-44 - BGE 2             -- Se R3 >= 63, pula para linha 46 (fim da eliminação de múltiplos de 3)
-45 - JUMP 30           -- Volta para linha 30 (continua eliminando)
+31 - LD R0, 0          -- R0 = 0
+32 - SW R0, A          -- RAM[A] = 0
+33 - ADD R3, R3, R2    -- R3 = R3 + R2
+34 - CMPI R3, 63       -- Compara R3 com 63
+35 - BGE 2             -- Se R3 >= 63, pula para o próximo bloco
+36 - JUMP 30           -- Volta para linha 30
 
--- Começa a eliminação de múltiplos de 5 --
-46 - LD R2, 5          -- R2 = 5
-47 - LD R3, 10         -- R3 = 10 (primeiro múltiplo de 5)
-48 - MOV A, R3         -- A = R3
-49 - LW R0, A          -- R0 = RAM[A]
-50 - MOV R4, R0        -- R4 = R0
-51 - MOV R5, R4        -- R5 = R4 (salva valor antes da subtração)
-52 - SUB R4, R4, R2    -- R4 = R4 - R2
-53 - CMPI R4, 0        -- Compara R4 com 0
-54 - BGE -3            -- Se R4 >= 0, volta para MOV R5, R4 (linha 51)
-55 - CMPI R5, 0        -- Compara valor salvo antes da última subtração
-56 - BEQ 2             -- Se R5 == 0, pula para linha 58 (zera múltiplo)
-57 - JUMP 59           -- Senão, pula para próximo endereço
-58 - LD R0, 0          -- R0 = 0 (prepara para zerar RAM)
-59 - SW R0, A          -- RAM[A] = 0 (zera múltiplo)
-60 - ADD R3, R3, R1    -- R3 = R3 + 1 (próximo endereço)
-61 - CMPI R3, 63       -- Compara R3 com 63 (fim da RAM?)
-62 - BGE 2             -- Se R3 >= 63, pula para linha 64 (fim da eliminação de múltiplos de 5)
-63 - JUMP 48           -- Volta para linha 48 (continua eliminando)
-
--- Começa a eliminação de múltiplos de 7 --
-64 - LD R2, 7          -- R2 = 7
-65 - LD R3, 14         -- R3 = 14 (primeiro múltiplo de 7)
-66 - MOV A, R3         -- A = R3
-67 - LW R0, A          -- R0 = RAM[A]
-68 - MOV R4, R0        -- R4 = R0
-69 - MOV R5, R4        -- R5 = R4 (salva valor antes da subtração)
-70 - SUB R4, R4, R2    -- R4 = R4 - R2
-71 - CMPI R4, 0        -- Compara R4 com 0
-72 - BGE -3            -- Se R4 >= 0, volta para MOV R5, R4 (linha 69)
-73 - CMPI R5, 0        -- Compara valor salvo antes da última subtração
-74 - BEQ 2             -- Se R5 == 0, pula para linha 76 (zera múltiplo)
-75 - JUMP 77           -- Senão, pula para próximo endereço
-76 - LD R0, 0          -- R0 = 0 (prepara para zerar RAM)
-77 - SW R0, A          -- RAM[A] = 0 (zera múltiplo)
-78 - ADD R3, R3, R1    -- R3 = R3 + 1 (próximo endereço)
-79 - CMPI R3, 63       -- Compara R3 com 63 (fim da RAM?)
-80 - BGE 2             -- Se R3 >= 63, pula para linha 82 (fim da eliminação de múltiplos de 7)
-81 - JUMP 66           -- Volta para linha 66 (continua eliminando)
+-- Eliminação eficiente de múltiplos de 7 --
+37 - LD R2, 7          -- R2 = 7 (divisor)
+38 - LD R3, 14         -- R3 = 14 (primeiro múltiplo de 7)
+39 - MOV A, R3         -- A = R3
+40 - LD R0, 0          -- R0 = 0
+41 - SW R0, A          -- RAM[A] = 0
+42 - ADD R3, R3, R2    -- R3 = R3 + R2
+43 - CMPI R3, 63       -- Compara R3 com 63
+44 - BGE 2             -- Se R3 >= 63, pula para o próximo bloco (ou varredura final)
+45 - JUMP 39           -- Volta para linha 39
 
 -- Varredura da saída --
-82 - LD R3, 2          -- R3 = 2 (endereço inicial para varredura)
-83 - MOV A, R3         -- A = R3
-84 - LW R0, A          -- R0 = RAM[A]
-85 - CMPI R0, 0        -- Compara R0 com 0
-86 - BEQ 2             -- Se R0 == 0, pula para linha 88 (não imprime)
-87 - OUT R0            -- Saída do valor (imprime se não for zero)
-88 - ADD R3, R3, R1    -- R3 = R3 + 1 (próximo endereço)
-89 - CMPI R3, 63       -- Compara R3 com 63
-90 - BGE 2             -- Se R3 >= 63, fim da varredura
-91 - JUMP 83           -- Volta para linha 83 (continua varrendo)
+46 - LD R3, 2          -- R3 = 2 (endereço inicial para varredura)
+47 - MOV A, R3         -- A = R3
+48 - LW R0, A          -- R0 = RAM[A]
+49 - CMPI R0, 0        -- Compara R0 com 0
+50 - BEQ 2             -- Se R0 == 0, pula para linha 52 (não armazena)
+51 - MOV R6, R0        -- R6 = R0 (armazena o valor encontrado como "primo")
+52 - ADD R3, R3, R1    -- R3 = R3 + 1 (próximo endereço)
+53 - CMPI R3, 63       -- Compara R3 com 63
+54 - BGE 2             -- Se R3 >= 63, fim da varredura
+55 - JUMP 47           -- Volta para linha 47 (continua varrendo)
