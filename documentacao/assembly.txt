@@ -52,19 +52,25 @@
 39 - JUMP 34           -- Volta para linha 34
 
 -- Varredura da saída --
-40 - LD A, 2           -- R3 = 2 (endereço inicial para varredura)
+40 - LD A, 2           
 41 - LD R1, 1
 42 - LD R4, 1
-43 - LW R0, A          -- R0 = RAM[A]
-44 - CMPI R0, 0        -- Compara R0 com 0
-45 - BEQ 7             -- Se R0 == 0, pula para linha 52 (não armazena)
-46 - MOV R3, A
-47 - LD A, 1
-48 - ADD A, A, R4
-49 - MOV R4, A 
-50 - MOV A, R3
-51 - MOV R5, R0        -- R6 = R0 (armazena o valor encontrado como "primo")
-52 - ADD A, A, R1      -- A = A + 1 (próximo endereço)
-53 - CMPI A, 63        -- Compara R3 com 63
-54 - BGE 2             -- Se R3 >= 63, fim da varredura
-55 - JUMP 43           -- Volta para linha 43 (continua varrendo)
+43 - LW R0, A  
+44 - MOV R3, A  
+45 - MOV A, R0      
+46 - CMPI A, 0   
+48 - BEQ 7   
+49 - LD A, 1
+50 - ADD A, A, R4
+51 - MOV R4, A 
+53 - MOV R5, R0 
+54 - MOV A, R3      
+55 - ADD A, A, R1      
+56 - CMPI A, 63     
+57 - BGE 7
+58 - MOV R3, A
+59 - MOV A, R4
+60 - CMPI A, 18
+61 - BEQ 3 
+62 - MOV A, R3         
+63 - JUMP 43         
