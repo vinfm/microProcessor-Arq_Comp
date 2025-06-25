@@ -12,65 +12,65 @@
 
 
 -- Eliminação eficiente de múltiplos de 2 --
-08 - LD R2, 2          -- R2 = 2 (divisor)
-09 - LD A, 4           -- R3 = 4 (primeiro múltiplo de 2)
-10 - LD R0, 0          -- R0 = 0 (valor para zerar)
-11 - SW R0, A          -- RAM[A] = 0 (zera múltiplo)
-12 - ADD A, A, R2      -- R3 = R3 + R2 (vai para o próximo múltiplo)
-13 - CMPI A, 63        -- Compara A com 63
-14 - BGE 2             -- Se A >= 63, pula para o próximo bloco
-15 - JUMP 10           -- Volta para linha 10 (continua zerando múltiplos)
+08 - LD R2, 2          -- 0010_010_000000010
+09 - LD A, 4           -- 0010_100_000000100
+10 - LD R0, 0          -- 0010_000_000000000
+11 - SW R0, A          -- 1101_111_000_xxxxxx
+12 - ADD A, A, R2      -- 0101_111_010_111_111
+13 - CMPI A, 63        -- 1001_111_000111111
+14 - BGE 2             -- 1100_00000010_x_101
+15 - JUMP 10           -- 1111_xxxxx_0001010
 
 -- Eliminação eficiente de múltiplos de 3 --
-16 - LD R2, 3          -- R2 = 3 (divisor)
-17 - LD A, 6           -- R3 = 6 (primeiro múltiplo de 3)
-18 - LD R0, 0          -- R0 = 0
-19 - SW R0, A          -- RAM[A] = 0
-20 - ADD A, A, R2      -- R3 = R3 + R2
-21 - CMPI A, 63        -- Compara R3 com 63
-22 - BGE 2             -- Se R3 >= 63, pula para o próximo bloco
-23 - JUMP 18           -- Volta para linha 18
+16 - LD R2, 3          -- 0010_010_000000011
+17 - LD A, 6           -- 0010_111_000000110
+18 - LD R0, 0          -- 0010_000_000000000
+19 - SW R0, A          -- 1101_111_000_xxxxxx
+20 - ADD A, A, R2      -- 0101_111_010_111_111
+21 - CMPI A, 63        -- 1001_111_000111111
+22 - BGE 2             -- 1100_00000010_x_101
+23 - JUMP 18           -- 1111_xxxxx_0010010
 
 -- Eliminação eficiente de múltiplos de 5 --
-24 - LD R2, 5          -- R2 = 5 (divisor)
-25 - LD A, 10          -- R3 = 10 (primeiro múltiplo de 5)
-26 - LD R0, 0          -- R0 = 0
-27 - SW R0, A          -- RAM[A] = 0
-28 - ADD A, A, R2      -- R3 = R3 + R2
-29 - CMPI A, 63        -- Compara R3 com 63
-30 - BGE 2             -- Se R3 >= 63, pula para o próximo bloco
-31 - JUMP 26           -- Volta para linha 26
+24 - LD R2, 5          -- 0010_010_000000101
+25 - LD A, 10          -- 0010_111_000001010
+26 - LD R0, 0          -- 0010_000_000000000
+27 - SW R0, A          -- 1101_111_000_xxxxxx
+28 - ADD A, A, R2      -- 0101_111_010_111_111
+29 - CMPI A, 63        -- 1001_111_000111111
+30 - BGE 2             -- 1100_00000010_x_101
+31 - JUMP 26           -- 1111_xxxxx_0011010
 
 -- Eliminação eficiente de múltiplos de 7 --
-32 - LD R2, 7          -- R2 = 7 (divisor)
-33 - LD A, 14          -- R3 = 14 (primeiro múltiplo de 7)
-34 - LD R0, 0          -- R0 = 0
-35 - SW R0, A          -- RAM[A] = 0
-36 - ADD A, A, R2      -- R3 = R3 + R2
-37 - CMPI A, 63        -- Compara R3 com 63
-38 - BGE 2             -- Se R3 >= 63, pula para o próximo bloco (ou varredura final)
-39 - JUMP 34           -- Volta para linha 34
+32 - LD R2, 7          -- 0010_010_000000111
+33 - LD A, 14          -- 0010_111_000001110
+34 - LD R0, 0          -- 0010_000_000000000
+35 - SW R0, A          -- 1101_111_000_xxxxxx
+36 - ADD A, A, R2      -- 0101_111_010_111_111
+37 - CMPI A, 63        -- 1001_111_000111111
+38 - BGE 2             -- 1100_00000010_x_101
+39 - JUMP 34           -- 1111_xxxxx_0100010
 
 -- Varredura da saída --
-40 - LD A, 2           
-41 - LD R1, 1
-42 - LD R4, 1
-43 - LW R0, A  
-44 - MOV R3, A  
-45 - MOV A, R0      
-46 - CMPI A, 0   
-48 - BEQ 5  
-49 - LD A, 1
-50 - ADD A, A, R4
-51 - MOV R4, A 
-53 - MOV R5, R0 
-54 - MOV A, R3      
-55 - ADD A, A, R1      
-56 - CMPI A, 63     
-57 - BGE 7
-58 - MOV R3, A
-59 - MOV A, R4
-60 - CMPI A, 18
-61 - BEQ 3 
-62 - MOV A, R3         
-63 - JUMP 43         
+40 - LD A, 2           -- 0010_ddd_ccccccccc
+41 - LD R1, 1          -- 0010_ddd_ccccccccc
+42 - LD R4, 1          -- 0010_ddd_ccccccccc
+43 - LW R0, A          -- 0011_ddd_aaa_xxxxxx
+44 - MOV R3, A         -- 0101_ddd_sss_xxx_001
+45 - MOV A, R0         -- 0101_ddd_sss_xxx_001
+46 - CMPI A, 0         -- 1001_sss_000000000
+48 - BEQ 5             -- 1100_00000101_x_010
+49 - LD A, 1           -- 0010_ddd_ccccccccc
+50 - ADD A, A, R4      -- 0101_111_100_111_111
+51 - MOV R4, A         -- 0101_ddd_sss_xxx_001
+53 - MOV R5, R0        -- 0101_ddd_sss_xxx_001
+54 - MOV A, R3         -- 0101_ddd_sss_xxx_001
+55 - ADD A, A, R1      -- 0101_111_001_111_111
+56 - CMPI A, 63        -- 1001_111_000111111
+57 - BGE 7             -- 1100_00000111_x_101
+58 - MOV R3, A         -- 0101_ddd_sss_xxx_001
+59 - MOV A, R4         -- 0101_ddd_sss_xxx_001
+60 - CMPI A, 18        -- 1001_111_000010010
+61 - BEQ 3             -- 1100_00000011_x_010
+62 - MOV A, R3         -- 0101_ddd_sss_xxx_001
+63 - JUMP 43           -- 1111_xxxxx_0101011
