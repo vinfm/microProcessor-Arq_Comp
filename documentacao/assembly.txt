@@ -59,7 +59,7 @@
 44 - MOV R3, A  
 45 - MOV A, R0      
 46 - CMPI A, 0   
-48 - BEQ 7   
+48 - BEQ 5  
 49 - LD A, 1
 50 - ADD A, A, R4
 51 - MOV R4, A 
