@@ -13,6 +13,7 @@ ghdl -a PC.vhd
 ghdl -a UC.vhd
 
 ghdl -a reg1bit.vhd
+ghdl -a ram.vhd
 
 ghdl -a processador.vhd
 ghdl -e processador
@@ -21,7 +22,7 @@ ghdl -a ./tbs/processador_tb.vhd
 ghdl -e processador_tb
 ghdl -r processador_tb  --wave=processador_tb.ghw
 
-gtkwave processador_tb.ghw 
+mv processador_tb.ghw sinais/
 echo.
 echo ====== Build completo! ======
 pause
