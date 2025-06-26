@@ -52,25 +52,25 @@
 39 - JUMP 34           -- 1111_xxxxx_0100010
 
 -- Varredura da saída --
-40 - LD A, 2           -- 0010_ddd_ccccccccc
+40 - LD A, 2           -- 0010_111_000000010
 41 - LD R1, 1          -- 0010_ddd_ccccccccc
 42 - LD R4, 1          -- 0010_ddd_ccccccccc
 43 - LW R0, A          -- 0011_ddd_aaa_xxxxxx
 44 - MOV R3, A         -- 0101_ddd_sss_xxx_001
 45 - MOV A, R0         -- 0101_ddd_sss_xxx_001
 46 - CMPI A, 0         -- 1001_sss_000000000
-48 - BEQ 5             -- 1100_00000101_x_010
-49 - LD A, 1           -- 0010_ddd_ccccccccc
-50 - ADD A, A, R4      -- 0101_111_100_111_111
-51 - MOV R4, A         -- 0101_ddd_sss_xxx_001
-53 - MOV R5, R0        -- 0101_ddd_sss_xxx_001
-54 - MOV A, R3         -- 0101_ddd_sss_xxx_001
-55 - ADD A, A, R1      -- 0101_111_001_111_111
-56 - CMPI A, 63        -- 1001_111_000111111
-57 - BGE 7             -- 1100_00000111_x_101
-58 - MOV R3, A         -- 0101_ddd_sss_xxx_001
-59 - MOV A, R4         -- 0101_ddd_sss_xxx_001
-60 - CMPI A, 18        -- 1001_111_000010010
-61 - BEQ 3             -- 1100_00000011_x_010
-62 - MOV A, R3         -- 0101_ddd_sss_xxx_001
-63 - JUMP 43           -- 1111_xxxxx_0101011
+47 - BEQ 5             -- 1100_00000101_x_010
+48 - LD A, 1           -- 0010_ddd_ccccccccc
+49 - ADD A, A, R4      -- 0101_111_100_111_111
+50 - MOV R4, A         -- 0101_ddd_sss_xxx_001
+51 - MOV R5, R0        -- 0101_ddd_sss_xxx_001
+52 - MOV A, R3         -- 0101_ddd_sss_xxx_001
+53 - ADD A, A, R1      -- 0101_111_001_111_111
+54 - CMPI A, 63        -- 1001_111_000111111
+55 - BGE 7             -- 1100_00000111_x_101
+56 - MOV R3, A         -- 0101_ddd_sss_xxx_001
+57 - MOV A, R4         -- 0101_ddd_sss_xxx_001
+58 - CMPI A, 18        -- 1001_111_000010010
+59 - BEQ 3             -- 1100_00000011_x_010
+60 - MOV A, R3         -- 0101_ddd_sss_xxx_001
+61 - JUMP 43           -- 1111_xxxxx_0101011
