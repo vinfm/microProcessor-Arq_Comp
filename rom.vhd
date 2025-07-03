@@ -1,36 +1,98 @@
 library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-entity rom is
-   port( clk      : in std_logic;
-         endereco : in unsigned(6 downto 0);
-         dado     : out unsigned(15 downto 0) 
-   );
-end entity;
-architecture a_rom of rom is
-   type mem is array (0 to 127) of unsigned(15 downto 0);
-   constant conteudo_rom : mem := (
-      -- caso endereco => conteudo
-      0  => "0000000000010101",
-      1  => "1000000000001111",
-      2  => "0000111100000000",
-      3  => "0010100010010000",
-      4  => "1000001000100011",
-      5  => "0000000111000010",
-      6  => "1111000000100101",
-      7  => "0001110000000010",
-      8  => "0010001110000010",
-      9  => "0000000000000000",
-      10 => "0000000000000000",
-      -- abaixo: casos omissos => (zero em todos os bits)
-      others => (others=>'0')
-   );
+  use ieee.std_logic_1164.all;
+  use ieee.numeric_std.all;
 
-   begin
-   process(clk)
-   begin
-      if(rising_edge(clk)) then
-         dado <= conteudo_rom(to_integer(endereco));
-      end if;
-   end process;
+entity rom is
+  port (clk      : in  std_logic;
+        endereco : in  unsigned(6 downto 0);
+        dado     : out unsigned(15 downto 0)
+       );
+end entity;
+
+architecture a_rom of rom is
+  type mem is array (0 to 127) of unsigned(15 downto 0);
+  constant conteudo_rom : mem := (
+    -- Preencher RAM com números ate 62
+    0      => B"0010_111_000000000",   -- LD A, 0
+    1      => B"0010_001_000000001",   -- LD R1, 1
+    2      => B"0101_011_111_000_001",   -- MV R3, A 
+    3      => B"1101_111_011_010001", -- SW R3, A
+    4      => B"0101_111_001_111_111",  -- ADD A, A, R1
+    5      => B"1001_111_000111110", -- CMPI A, 62 
+    6      => B"1100_00000010_1_101",   -- BGE 2
+    7      => B"1111_11111_0000010",  -- JUMP 1 
+
+    -- Eliminação eficiente de múltiplos de 2
+    8      => B"0010_010_000000010",   -- LD R2, 2
+    9      => B"0010_111_000000100",   -- LD A, 4
+    10     => B"0010_000_000000000",   -- LD R0, 0
+    11     => B"1101_111_000_000000",  -- SW R0, A
+    12     => B"0101_111_010_111_111", -- ADD A, A, R2
+    13     => B"1001_111_000111111",   -- CMPI A, 63
+    14     => B"1100_00000010_1_101",  -- BGE 2
+    15     => B"1111_00000_0001010",   -- JUMP 10
+
+    -- Eliminação eficiente de múltiplos de 3
+    16     => B"0010_010_000000011",   -- LD R2, 3
+    17     => B"0010_111_000000110",   -- LD A, 6
+    18     => B"0010_000_000000000",   -- LD R0, 0
+    19     => B"1101_111_000_000000",  -- SW R0, A
+    20     => B"0101_111_010_111_111", -- ADD A, A, R2
+    21     => B"1001_111_000111111",   -- CMPI A, 63
+    22     => B"1100_00000010_1_101",  -- BGE 2
+    23     => B"1111_00000_0010010",   -- JUMP 18
+
+    -- Eliminação eficiente de múltiplos de 5
+    24     => B"0010_010_000000101",   -- LD R2, 5
+    25     => B"0010_111_000001010",   -- LD A, 10
+    26     => B"0010_000_000000000",   -- LD R0, 0
+    27     => B"1101_111_000_000000",  -- SW R0, A
+    28     => B"0101_111_010_111_111", -- ADD A, A, R2
+    29     => B"1001_111_000111111",   -- CMPI A, 63
+    30     => B"1100_00000010_1_101",  -- BGE 2
+    31     => B"1111_00000_0011010",   -- JUMP 26
+
+    -- Eliminação eficiente de múltiplos de 7
+    32     => B"0010_010_000000111",   -- LD R2, 7
+    33     => B"0010_111_000001110",   -- LD A, 14
+    34     => B"0010_000_000000000",   -- LD R0, 0
+    35     => B"1101_111_000_000000",  -- SW R0, A
+    36     => B"0101_111_010_111_111", -- ADD A, A, R2
+    37     => B"1001_111_000111111",   -- CMPI A, 63
+    38     => B"1100_00000010_1_101",  -- BGE 2
+    39     => B"1111_00000_0100010",   -- JUMP 34
+
+    -- Varredura da saída
+    40     => B"0010_111_000000010",   -- LD A, 2
+    41     => B"0010_001_000000001",   -- LD R1, 1
+    42     => B"0010_100_000000000",   -- LD R4, 0
+    43     => B"0011_000_111_000000",  -- LW R0, A
+    44     => B"0101_011_111_010_001", -- MOV R3, A
+    45     => B"0101_111_000_010_001", -- MOV A, R0  
+    46     => B"1001_111_000000000",   -- CMPI A, 0
+    47     => B"1100_00000101_0_010",  -- BEQ 5
+    48     => B"0010_111_000000001",   -- LD A, 1
+    49     => B"0101_111_100_111_111", -- ADD A, A, R4
+    50     => B"0101_100_111_000_001", -- MOV R4, A
+    51     => B"0101_101_000_000_001", -- MOV R5, R0
+    52     => B"0101_111_011_000_001", -- MOV A, R3
+    53     => B"1001_111_000111111",   -- CMPI A, 63
+    54     => B"1100_00000111_1_101",  -- BGE 7
+    55     => B"0101_111_100_111_001", -- MOV A, R4
+    56     => B"1001_111_000010010",   -- CMPI A, 18
+    57     => B"1100_00000100_0_010",  -- BEQ 4
+    58     => B"0101_111_011_111_001", -- MOV A, R3  
+    59     => B"0101_111_001_111_111", -- ADD A, A, R1 
+    60     => B"1111_00000_0101011",   -- JUMP 43  101011
+    61     => B"0101_111_011_111_001", -- MOV A, R3
+    others => (others => '0')
+  );
+
+begin
+  process (clk)
+  begin
+    if (rising_edge(clk)) then
+      dado <= conteudo_rom(to_integer(endereco));
+    end if;
+  end process;
 end architecture;

@@ -1,0 +1,340 @@
+library ieee;
+  use ieee.std_logic_1164.all;
+  use ieee.numeric_std.all;
+
+entity processador is
+  port (
+    clk_in    : in  std_logic;            --clock da placa
+    rst       : in  std_logic;            --reset geral
+	 S1_1		  : out std_logic;
+	 S2_1		  : out std_logic;
+	 S3_1		  : out std_logic;
+	 S4_1		  : out std_logic;
+	 S5_1		  : out std_logic;
+	 S6_1		  : out std_logic;
+	 S7_1		  : out std_logic;
+	 S1_2		  : out std_logic;
+	 S2_2		  : out std_logic;
+	 S3_2		  : out std_logic;
+	 S4_2		  : out std_logic;
+	 S5_2		  : out std_logic;
+	 S6_2		  : out std_logic;
+	 S7_2		  : out std_logic
+  );
+end entity;
+
+architecture a_processador of processador is
+  -- PC + UC + maquina de estados + ROM --
+  component maq_estados
+    port (
+      clk    : in  std_logic;
+      rst    : in  std_logic;
+      estado : out unsigned(1 downto 0)
+    );
+  end component;
+
+  component reg7bits --para o PC
+    port (
+      clk      : in  std_logic; --clock
+      rst      : in  std_logic; --reset
+      wr_en    : in  std_logic;
+      data_in  : in  unsigned(6 downto 0);
+      data_out : out unsigned(6 downto 0)
+    );
+  end component;
+
+  component rom
+    port (
+      clk      : in  std_logic;
+      endereco : in  unsigned(6 downto 0);
+      dado     : out unsigned(15 downto 0)
+    );
+  end component;
+
+  component UC
+    port (
+      clk           : in  std_logic;             -- clock
+      rst           : in  std_logic;             --reset geral
+      data_in       : in  unsigned(6 downto 0);  -- endereço do PC
+      estado        : in  unsigned(1 downto 0);  -- Estado de 2 bits
+      instr         : in  unsigned(15 downto 0); -- Instrução de 16 bits
+      flag_zero     : in  std_logic;             -- Flag de zero, usada para comparações
+      flag_neg      : in  std_logic;             -- Flag de negativo, usada para comparações
+      flag_overflow : in  std_logic;             -- Flag de overflow, usada para comparações
+      data_out      : out unsigned(6 downto 0);  -- endereço do PC atualizado
+      wr_enPC       : out std_logic;             --habilita escrita no PC
+      wr_enIR       : out std_logic;             -- write enable do registrador da instrução
+      sourceB       : out unsigned(1 downto 0);  --fonte do segundo operando da ULA
+      OP_ULA        : out unsigned(1 downto 0);  -- código de operação da ULA
+      reg_src       : out unsigned(2 downto 0);  --registrador fonte, se houver
+      rd            : out unsigned(2 downto 0);  --registrador destino, se houver
+      banco_rcv     : out unsigned(1 downto 0);  -- fonte que o banco recebe (imediato ou do mov)
+      A_rcv         : out unsigned(1 downto 0);  -- fonte que o acumulador recebe (imediato, do mov ou da ULA)
+      constante     : out unsigned(15 downto 0); -- constante a ser usada
+      wr_enBanco    : out std_logic;             -- write enable do banco de regs
+      wr_enA        : out std_logic;             -- write enable do acumulador
+      wr_en_f       : out std_logic;             -- write enable do registrador de flags
+      wr_en_ram     : out std_logic              -- write enable da RAM
+    );
+  end component;
+
+  signal UCout, PCout         : unsigned(6 downto 0);  -- Endereço do PC atual e próximo
+  signal instr_in, instr_out  : unsigned(15 downto 0); -- Instrução de 16 bits
+  signal estado_uc            : unsigned(1 downto 0);  -- Estado de 2 bits
+  signal wr_enPC_s, wr_enIR_s : std_logic;             -- Sinais de controle para escrita no PC e IR
+  -- termina PC + UC + maquina de estados + ROM --
+  component reg16bits
+    port (
+      clk      : in  std_logic;
+      rst      : in  std_logic;
+      wr_en    : in  std_logic;
+      data_in  : in  unsigned(15 downto 0);
+      data_out : out unsigned(15 downto 0)
+    );
+  end component;
+
+  -- Banco de Registradores + ULA + Acumulador --
+  component regsMaisULA
+    port (
+      clk               : in  std_logic;             --clock
+      rst               : in  std_logic;             --reset geral
+      B_wen             : in  std_logic;             --habilita escrita no banco de registradores
+      ula_op            : in  unsigned(1 downto 0);  --código de operação da ULA
+      data_wr           : in  unsigned(15 downto 0); --dado a escrever no banco de registradores
+      const             : in  unsigned(15 downto 0); --constante
+      reg_wr            : in  unsigned(2 downto 0);  --registrador a escrever
+      reg_r1            : in  unsigned(2 downto 0);  --registrador a ler
+      sel_ULA_optr      : in  unsigned(1 downto 0);  --seleciona o segundo operador da ULA
+      data_wr_bRegs_sel : in  unsigned(1 downto 0);  --seleciona fonte de dados para o banco de registradores
+      A_wr_sel          : in  unsigned(1 downto 0);  --seleciona fonte do dado a escrever no A
+      A_wen             : in  std_logic;             --habilita escrita no acumulador
+      overflow          : out std_logic;             --flag de overflow da ULA
+      negativo          : out std_logic;             --flag de negativo da ULA
+      zero              : out std_logic;             --flag de zero da ULA
+      dt_to_ram         : out unsigned(15 downto 0); --dado a ser escrito na RAM
+      adr_ram           : out unsigned(6 downto 0)   --endereço da RAM a ser usado
+    );
+  end component;
+  -- Fim Banco de Registradores + ULA + Acumulador --
+
+  -- Sinais de controle e fontes de dados --
+  signal wr_enBanco_s, wr_enA_s, wr_en_f_s, wr_en_ram_s : std_logic;             -- sinais de write enable
+  signal ff_z_i, ff_z_o, ff_n_i, ff_n_o, ff_v_i, ff_v_o : std_logic;             -- Sinais de entrada e saídas dos flip flops de flags
+  signal sourceB_s                                      : unsigned(1 downto 0);  -- Fonte do segundo operando da ULA
+  signal banco_rcv_s, A_rcv_s                           : unsigned(1 downto 0);
+  signal const_s                                        : unsigned(15 downto 0); -- Constante a ser usada
+
+  signal op_ULA_s                   : unsigned(1 downto 0);  -- Código de operação da ULA
+  signal reg_src_s, rd_s            : unsigned(2 downto 0);  -- Registradores fonte e destino
+  signal mem_data_read, dt_to_ram_s : unsigned(15 downto 0); -- Dado lido da memória (simulação não usa memória)
+  signal adr_ram_s                  : unsigned(6 downto 0);  -- Endereço da RAM a ser usado (simulação não usa memória)
+
+  -- Flip Flops para armazenar as flags
+  component reg1bit
+    port (
+      clk      : in  std_logic;
+      rst      : in  std_logic;
+      wr_en    : in  std_logic;
+      data_in  : in  std_logic;
+      data_out : out std_logic
+    );
+  end component;
+
+  -- RAM
+  component ram
+    port (
+      clk      : in  std_logic;
+      endereco : in  unsigned(6 downto 0);
+      wr_en    : in  std_logic;
+      dado_in  : in  unsigned(15 downto 0);
+      dado_out : out unsigned(15 downto 0)
+    );
+  end component;
+  
+  -- Coisa nova para o Quartus
+  component Display7SEG
+	PORT
+	(
+		A3		:	 in  std_logic;
+		A2		:	 in  std_logic;
+		A1		:	 in  std_logic;
+		A0		:	 in  std_logic;
+		S1		:	 out std_logic;
+		S2		:	 out std_logic;
+		S3		:	 out std_logic;
+		S4		:	 out std_logic;
+		S5		:	 out std_logic;
+		S6		:	 out std_logic;
+		S7		:	 out std_logic
+	);
+  end component;
+  
+  COMPONENT Timing_Reference
+	PORT
+	(
+		clk		:	 IN STD_LOGIC;
+		clk_1kHz		:	 OUT STD_LOGIC
+	);
+END COMPONENT;
+
+  signal bits_displayMS, bits_displayLS : std_logic_vector(3 downto 0);
+  signal clk : std_logic;
+begin
+
+  maq_est: maq_estados
+    port map (
+      clk    => clk,
+      rst    => rst,
+      estado => estado_uc -- Estado de 2 bits
+    );
+
+  UC_top: UC
+    port map (
+      clk           => clk,
+      rst           => rst,
+      data_in       => PCout,
+      estado        => estado_uc,
+      instr         => instr_out,
+      flag_zero     => ff_z_o, -- Flag de zero
+      flag_neg      => ff_n_o, -- Flag de negativo
+      flag_overflow => ff_v_o, -- Flag de overflow
+      data_out      => UCout,
+      wr_enPC       => wr_enPC_s,
+      wr_enIR       => wr_enIR_s,
+      sourceB       => sourceB_s,
+      OP_ULA        => op_ULA_s,
+      reg_src       => reg_src_s,
+      rd            => rd_s,
+      banco_rcv     => banco_rcv_s,
+      A_rcv         => A_rcv_s,
+      constante     => const_s,
+      wr_enBanco    => wr_enBanco_s,
+      wr_enA        => wr_enA_s,
+      wr_en_f       => wr_en_f_s,
+      wr_en_ram     => wr_en_ram_s
+    );
+
+  PC: reg7bits
+    port map (
+      clk      => clk,
+      rst      => rst,
+      wr_en    => wr_enPC_s, -- Habilita escrita no PC
+      data_in  => UCout,     -- Endereço do PC atualizado
+      data_out => PCout -- Endereço do PC atual
+    );
+
+  ROM_instr: rom
+    port map (
+      clk      => clk,
+      endereco => PCout,
+      dado     => instr_in
+    );
+
+  instr_reg: reg16bits
+    port map (
+      clk      => clk,
+      rst      => rst,
+      wr_en    => wr_enIR_s,
+      data_in  => instr_in,
+      data_out => instr_out
+    );
+
+  ULA_regs: regsMaisULA
+    port map (
+      clk               => clk,
+      rst               => rst,
+      B_wen             => wr_enBanco_s,  -- Habilita escrita no banco de registradores
+      ula_op            => op_ULA_s,      -- Código de operação da ULA
+      data_wr           => mem_data_read, -- Dado a ler da memória 
+      const             => const_s,       -- Constante 
+      reg_wr            => rd_s,          -- Registrador a escrever
+      reg_r1            => reg_src_s,     -- Registrador a ler 
+      sel_ULA_optr      => sourceB_s,     -- Seleciona o segundo operador da ULA
+      data_wr_bRegs_sel => banco_rcv_s,   -- Seleciona fonte de dados para o banco de registradores
+      A_wr_sel          => A_rcv_s,       -- Seleciona fonte do dado a escrever no A
+      A_wen             => wr_enA_s,      -- Habilita escrita no acumulador
+      overflow          => ff_v_i,        -- Flag de overflow da ULA 
+      negativo          => ff_n_i,        -- Flag de negativo da ULA 
+      zero              => ff_z_i,        -- Flag de zero da ULA 
+      dt_to_ram         => dt_to_ram_s,   -- Dado a ser escrito na RAM (simulação não usa memória)
+      adr_ram           => adr_ram_s -- Endereço da RAM a ser usado (simulação não usa memória)
+    );
+
+  ff_negativo: reg1bit
+    port map (
+      clk      => clk,
+      rst      => rst,
+      wr_en    => wr_en_f_s,
+      data_in  => ff_n_i, -- Flag de negativo da ULA
+      data_out => ff_n_o -- Saída da flag de negativo
+    );
+
+  ff_overflow: reg1bit
+    port map (
+      clk      => clk,
+      rst      => rst,
+      wr_en    => wr_en_f_s,
+      data_in  => ff_v_i, -- Flag de overflow da ULA
+      data_out => ff_v_o -- Saída da flag de overflow
+    );
+
+  ff_zero: reg1bit
+    port map (
+      clk      => clk,
+      rst      => rst,
+      wr_en    => wr_en_f_s, -- Habilita escrita no acumulador
+      data_in  => ff_z_i,    -- Flag de zero da ULA
+      data_out => ff_z_o -- Saída da flag de zero
+    );
+
+  a_ram: ram
+    port map (
+      clk      => clk,
+      endereco => adr_ram_s,   -- Endereço da RAM
+      wr_en    => wr_en_ram_s, -- Habilita escrita na RAM
+      dado_in  => dt_to_ram_s, -- Dado a escrever na RAM
+      dado_out => mem_data_read -- Dado lido da RAM (simulação não usa memória)
+    );
+
+  bits_displayMS <= std_logic_vector(to_unsigned(to_integer(mem_data_read)/ 10, 4));
+  
+  bits_displayLS <= std_logic_vector(to_unsigned(to_integer(mem_data_read) mod 10, 4));
+  
+  
+  displayMS: Display7SEG
+    port map (
+      A3      	=> bits_displayMS(3),
+      A2 	  	=> bits_displayMS(2),
+      A1      	=> bits_displayMS(1),
+      A0  	  	=> bits_displayMS(0),
+      S1 	  	=> S1_1,
+		
+		S2 	  	=> S2_1,
+		S3 	  	=> S3_1,
+		S4 	  	=> S4_1,
+		S5 	  	=> S5_1,
+		S6 	  	=> S6_1,
+		S7 	  	=> S7_1
+    );
+	 
+  displayLS: Display7SEG
+    port map (
+      A3      	=> bits_displayLS(3),
+      A2 		=> bits_displayLS(2),
+      A1    	=> bits_displayLS(1),
+      A0  		=> bits_displayLS(0),
+      S1 		=> S1_2,
+		S2 		=> S2_2,
+		S3 		=> S3_2,
+		S4 		=> S4_2,
+		S5 		=> S5_2,
+		S6 		=> S6_2,
+		S7 		=> S7_2
+    );
+	 
+  divisor: Timing_Reference
+	 port map (
+		clk 		=> clk_in,
+		clk_1kHz => clk
+	 );
+end architecture;
